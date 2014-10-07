@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://asahima.github.io/sitemap.xml 
