@@ -1,0 +1,15 @@
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby -r ./siteconf20141007-75121-stfzd6.rb extconf.rb 
+checking for main() in -lc... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling redcloth_attributes.c
+compiling redcloth_inline.c
+compiling redcloth_scan.c
+linking shared-object redcloth_scan.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 redcloth_scan.bundle ./.gem.20141007-75121-1e67lij
+installing default redcloth_scan libraries
