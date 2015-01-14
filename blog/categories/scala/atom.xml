@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scala | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-15T04:35:23+09:00</updated>
+  <updated>2015-01-15T04:36:47+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Scala縺ァWiki繧偵▽縺上▲縺ヲ縺ソ縺溘＞]]></title>
+    <title type="html"><![CDATA[ScalaでWikiをつくりたい＞]]></title>
     <link href="http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai/"/>
     <updated>2015-01-15T03:07:05+09:00</updated>
     <id>http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai</id>
@@ -78,7 +78,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[scala縺ョ蜍牙シキ]]></title>
+    <title type="html"><![CDATA[scalaの勉強]]></title>
     <link href="http://asahima.github.io/blog/2015/01/15/scalafalsemian-qiang/"/>
     <updated>2015-01-15T01:07:26+09:00</updated>
     <id>http://asahima.github.io/blog/2015/01/15/scalafalsemian-qiang</id>
