@@ -4,7 +4,7 @@
   <title><![CDATA[Category: プログラミング | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/puroguramingu/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-15T06:50:45+09:00</updated>
+  <updated>2015-01-15T06:51:15+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,91 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[play2でHello World]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/15/play2dehello-world/"/>
+    <updated>2015-01-15T06:21:08+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/15/play2dehello-world</id>
+    <content type="html"><![CDATA[<p>Wikiを作るためにPlay2を実際に触ってみようということで、Hello Worldを出力してみた。</p>
+
+<p>今回使った環境として</p>
+
+<ul>
+<li>Scala</li>
+<li>Play2</li>
+<li>Intellij Idea 14 Ultimate</li>
+</ul>
+
+
+<p>になります。学生なので無料でUltimateを使えています。
+以下、Hello Worldの出力の過程です。</p>
+
+<h2>手順１ 既存のソースを見てみる</h2>
+
+<p>最初に出力されるApplication.scalanのソースコードは以下のようになっていました。これは<strong>/index</strong>にアクセスした際に、<strong>/app/views/index.scala.html</strong>を返すという意味になります。okは正しいrequestの場合みたいです。なので、ただHello Worldを表示したければ、この辺をいじればいいみたい。</p>
+
+<p>&lsquo;&rsquo;&lsquo;Scala</p>
+
+<p>package controllers</p>
+
+<p>import play.api.<em>
+import play.api.mvc.</em></p>
+
+<p>object Application extends Controller {</p>
+
+<p>  def index = Action {
+      Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
+            }</p>
+
+<p>}</p>
+
+<p>&lsquo;&rsquo;&#8217;</p>
+
+<h2>手順2 Hello Worldを表示するhtmlを指定する</h2>
+
+<p>Hello Worldを表示するファイルを作る前に、requestを飛ばす先を変更します。</p>
+
+<p>変更点は一つだけで
+<strong>views.html.index() => views.html.hello()</strong>
+です。これは<strong>/app/views/index.scala.html</strong>から<strong>/app/views/hello.scala.html</strong>に変更するという意味です。</p>
+
+<p>&lsquo;&rsquo;&lsquo;Scala</p>
+
+<p>package controllers</p>
+
+<p>import play.api.<em>
+import play.api.mvc.</em></p>
+
+<p>object Application extends Controller {</p>
+
+<p>  def index = Action {
+      Ok(views.html.hello())
+            }
+}</p>
+
+<p>&lsquo;&rsquo;&#8217;</p>
+
+<h2>手順3 htmlファイルを作成する</h2>
+
+<p>ただこれだけ</p>
+
+<p>&lsquo;&rsquo;&lsquo;html
+&lt;!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+ </html>
+&rsquo;&lsquo;&rsquo;</p>
+
+<p>これで実行すればHello Worldが出力されます。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ScalaでWikiをつくりたい]]></title>
