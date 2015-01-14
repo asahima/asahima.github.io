@@ -221,6 +221,34 @@
 
 
 <p>これで実行すればHello Worldが出力されます。</p>
+
+<h2>おまけ</h2>
+
+<p>Hello Worldを出力する上で、routingを全く気にしていないですが、実際にアプリケーションを作る上でroutingは必須です。簡単にroutingをする方法を見てみます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Routes
+</span><span class='line'># This file defines all application routes (Higher priority routes first)
+</span><span class='line'># ~~~~
+</span><span class='line'>
+</span><span class='line'># Home page
+</span><span class='line'>GET     /                           controllers.Application.index
+</span><span class='line'>
+</span><span class='line'># Map static resources from the /public folder to the /assets URL path
+</span><span class='line'>GET     /assets/\*file               controllers.Assets.at(path="/public", file)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この中で変更する部分は
+<strong>GET     /                           controllers.Application.index</strong>
+です。これは<strong>/</strong>にgetを投げたときに<strong>/app/controllers/Application.scalaのindex</strong>を表示するという意味です(多分)。なので、この辺を自分のやりたいようにできます(ある程度までは)</p>
 </div>
 
 
