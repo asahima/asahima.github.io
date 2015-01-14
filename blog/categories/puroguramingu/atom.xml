@@ -4,7 +4,7 @@
   <title><![CDATA[Category: プログラミング | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/puroguramingu/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-15T06:53:20+09:00</updated>
+  <updated>2015-01-15T06:55:39+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -36,20 +36,34 @@
 
 <p>最初に出力されるApplication.scalanのソースコードは以下のようになっていました。これは<strong>/index</strong>にアクセスした際に、<strong>/app/views/index.scala.html</strong>を返すという意味になります。okは正しいrequestの場合みたいです。なので、ただHello Worldを表示したければ、この辺をいじればいいみたい。</p>
 
-<p><code>
-package controllers</p>
-
-<p>import play.api.<em>
-import play.api.mvc.</em></p>
-
-<p>object Application extends Controller {</p>
-
-<p>  def index = Action {
-      Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
-            }</p>
-
-<p>}
-</code></p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>import play.api.&lt;em>
+</span><span class='line'>import play.api.mvc.&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>object Application extends Controller {&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  def index = Action {
+</span><span class='line'>      Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
+</span><span class='line'>            }&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <h2>手順2 Hello Worldを表示するhtmlを指定する</h2>
 
@@ -59,38 +73,65 @@ import play.api.mvc.</em></p>
 <strong>views.html.index() => views.html.hello()</strong>
 です。これは<strong>/app/views/index.scala.html</strong>から<strong>/app/views/hello.scala.html</strong>に変更するという意味です。</p>
 
-<p><code></p>
-
-<p>package controllers</p>
-
-<p>import play.api.<em>
-import play.api.mvc.</em></p>
-
-<p>object Application extends Controller {</p>
-
-<p>  def index = Action {
-      Ok(views.html.hello())
-            }
-}</p>
-
-<p></code></p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>import play.api.&lt;em>
+</span><span class='line'>import play.api.mvc.&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>object Application extends Controller {&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  def index = Action {
+</span><span class='line'>      Ok(views.html.hello())
+</span><span class='line'>            }
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <h2>手順3 htmlファイルを作成する</h2>
 
 <p>ただこれだけ</p>
 
-<p><code>
-&lt;!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
- </html>
-</code></p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>&lt;!DOCTYPE html>
+</span><span class='line'>&lt;html>
+</span><span class='line'>&lt;head lang="en">
+</span><span class='line'>  &lt;meta charset="UTF-8">
+</span><span class='line'>    &lt;title>&lt;/title>
+</span><span class='line'>&lt;/head>
+</span><span class='line'>&lt;body>
+</span><span class='line'>    &lt;h1>Hello World&lt;/h1>
+</span><span class='line'>&lt;/body>
+</span><span class='line'> &lt;/html>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <p>これで実行すればHello Worldが出力されます。</p>
 ]]></content>
