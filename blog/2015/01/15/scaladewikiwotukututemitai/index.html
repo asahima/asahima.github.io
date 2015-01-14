@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>読書:心理統計 - メモ帳</title>
+  <title>Scala縺ァWiki繧偵▽縺上▲縺ヲ縺ソ縺溘＞ - メモ帳</title>
   <meta name="author" content="asahima">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/14/du-shu-xin-li-tong-ji">
+  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -95,7 +95,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">読書:心理統計</h1>
+      <h1 class="entry-title">Scala縺ァWiki繧偵▽縺上▲縺ヲ縺ソ縺溘＞</h1>
     
     
       <p class="meta">
@@ -111,59 +111,69 @@
   
 
 
-<time datetime="2015-01-14T22:57:30+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-15T03:07:05+09:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><ul>
-<li><p>リサーチクエスチョン</p>
+<div class="entry-content"><p>研究やプログラミングをする際に、何か気になったことやこれは覚えておきたいなと思ったことはいつもローカルで動かしているWikiに書き込んでいるのですが、最近自分で使っているWikiに不満を覚えたので、勉強がてらに挑戦してみることにしみました。</p>
+
+<h2>欲しい機能</h2>
+
+<p>自分で使う上で欲しい機能は以下のようなものです。</p>
 
 <ul>
-<li>何らかの「問い」を発すること</li>
+<li>記事の投稿</li>
+<li>&lsquo;&rsquo; 削除</li>
+<li>&lsquo;&rsquo; 編集</li>
+<li>&lsquo;&rsquo; 検索</li>
+<li>&lsquo;&rsquo; タグ付与</li>
+<li>markdownでの記入</li>
+<li>markdownのpreview</li>
 </ul>
-</li>
-<li><p>「仮説が正しければ、予想通りの結果が得られる」が正しいとしても、「予想通りの結果が得られれば、仮説が正しい」といういうわけではない</p>
+
+
+<h2>何で作るか</h2>
 
 <ul>
-<li>両方の命題は対偶の関係にはない</li>
-</ul>
-</li>
-<li><p>心理学研究のアプローチ</p>
+<li>言語
 
 <ul>
-<li>調査
+<li>Scala</li>
+</ul>
+</li>
+<li>使いたいライブラリ
 
 <ul>
-<li>現実の事象をそのまま把握する</li>
-</ul>
-</li>
-<li>実験
+<li>Play2.x or Skinny
 
 <ul>
-<li>研究者の側で予め設定する条件の効果が見やすくなるようにする</li>
+<li>Webフレームワーク</li>
+<li>フルスタックらしい</li>
 </ul>
 </li>
-<li>実践</li>
-</ul>
-</li>
-<li><p>母集団</p>
+<li>Slick
 
 <ul>
-<li>リサーチクエスチョンや仮説が想定している対象の集団</li>
-<li>サンプルは母集団から<strong>ランダムに</strong>選択される</li>
+<li>ORM</li>
 </ul>
 </li>
-<li><p>本</p>
+<li>knockoff
 
 <ul>
-<li><a href="" title="http://www.amazon.co.jp/%E5%BF%83%E7%90%86%E7%B5%B1%E8%A8%88%E5%AD%A6%E3%81%AE%E5%9F%BA%E7%A4%8E%E2%80%95%E7%B5%B1%E5%90%88%E7%9A%84%E7%90%86%E8%A7%A3%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB-%E6%9C%89%E6%96%90%E9%96%A3%E3%82%A2%E3%83%AB%E3%83%9E-%E5%8D%97%E9%A2%A8%E5%8E%9F-%E6%9C%9D%E5%92%8C/dp/4641121605">心理統計学の基礎</a></li>
+<li>markdownをHTMLに変換するライブラリらしい</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
+
+<p>まぁ、こんな構成でぼちぼちやっていこうと思います。その過程を書いていければと思います。</p>
+
+<p>では</p>
 </div>
 
 
@@ -186,12 +196,12 @@
   
 
 
-<time datetime="2015-01-14T22:57:30+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-15T03:07:05+09:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/[?]-zhang/'>一章</a>, <a class='category' href='/blog/categories/xin-li-tong-ji-xue-falseji-chu/'>心理統計学の基礎</a>, <a class='category' href='/blog/categories/du-shu/'>読書</a>
+    <a class='category' href='/blog/categories/scala/'>scala</a>, <a class='category' href='/blog/categories/puroguramingu/'>プログラミング</a>
   
 </span>
 
@@ -200,7 +210,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/14/du-shu-xin-li-tong-ji/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/14/du-shu-xin-li-tong-ji/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai/" >Tweet</a>
   
   
   
@@ -211,14 +221,10 @@
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2014/10/07/chu-tou-gao/" title="Previous Post:
-        初投稿">&laquo; 初投稿</a></li>
+        href="/blog/2015/01/15/scalafalsemian-qiang/" title="Previous Post:
+        scala縺ョ蜍牙シキ">&laquo; scala縺ョ蜍牙シキ</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2015/01/15/du-shu-xin-li-tong-ji-xue-falseji-chu-er-zhang/"
-        title="Next Post: 読書:心理統計学の基礎 二章">読書:心理統計学の基礎 二章
-        &raquo;</a></li>
       
     </ul>
   </footer>
