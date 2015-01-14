@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[メモ帳]]></title>
-  <link href="http://asahima.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 読書 | メモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/du-shu/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
   <updated>2015-01-15T00:41:51+09:00</updated>
   <id>http://asahima.github.io/</id>
@@ -64,28 +64,6 @@
 </li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[初投稿]]></title>
-    <link href="http://asahima.github.io/blog/2014/10/07/chu-tou-gao/"/>
-    <updated>2014-10-07T20:18:55+09:00</updated>
-    <id>http://asahima.github.io/blog/2014/10/07/chu-tou-gao</id>
-    <content type="html"><![CDATA[<p>周囲から導入が難しいと言われて、ちょっと試してみようというノリでgithub pagesにoctpressを入れた次第です。どうせということで、自分の興味のあるトピックについて勉強したことを書いていければと思っています。</p>
-
-<p>興味のあるトピックは</p>
-
-<ul>
-<li>プログラミング</li>
-<li>機械学習</li>
-<li>自然言語処理</li>
-</ul>
-
-
-<p>です。</p>
-
-<p>よろしくお願いします</p>
 ]]></content>
   </entry>
   
