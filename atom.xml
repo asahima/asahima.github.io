@@ -4,7 +4,7 @@
   <title><![CDATA[メモ帳]]></title>
   <link href="http://asahima.github.io/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-15T04:45:54+09:00</updated>
+  <updated>2015-01-15T04:46:56+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[ScalaでWikiをつくりたい＞]]></title>
+    <title type="html"><![CDATA[ScalaでWikiをつくりたい]]></title>
     <link href="http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai/"/>
     <updated>2015-01-15T03:07:05+09:00</updated>
     <id>http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai</id>
