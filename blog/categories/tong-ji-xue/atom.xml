@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 統計学 | メモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/tong-ji-xue/atom.xml" rel="self"/>
+  <link href="http://asahima.github.io/"/>
+  <updated>2015-01-15T03:06:11+09:00</updated>
+  <id>http://asahima.github.io/</id>
+  <author>
+    <name><![CDATA[asahima]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[読書:心理統計学の基礎 二章]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/15/du-shu-xin-li-tong-ji-xue-falseji-chu-er-zhang/"/>
+    <updated>2015-01-15T00:51:14+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/15/du-shu-xin-li-tong-ji-xue-falseji-chu-er-zhang</id>
+    <content type="html"><![CDATA[<p>統計学の知識が無さ過ぎるということに気付き、分かりやすいということで本書を読み始めております。ちゃんと理解して読みきりたい</p>
+
+<h2>心理統計学の基礎 二章</h2>
+
+<h3>分布の代表値</h3>
+
+<ul>
+<li><p>代表値</p>
+
+<ul>
+<li>分布の特徴を表す値</li>
+<li>平均</li>
+<li>中央値</li>
+</ul>
+</li>
+<li><p>代表値の選択方法</p>
+
+<ul>
+<li>自身の仮説に対する<strong>適切さ</strong>を定義し、それに最も準ずるようなものを選択する</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
