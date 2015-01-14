@@ -136,9 +136,8 @@
 
 <p>最初に出力されるApplication.scalanのソースコードは以下のようになっていました。これは<strong>/index</strong>にアクセスした際に、<strong>/app/views/index.scala.html</strong>を返すという意味になります。okは正しいrequestの場合みたいです。なので、ただHello Worldを表示したければ、この辺をいじればいいみたい。</p>
 
-<p>&lsquo;&rsquo;&lsquo;Scala</p>
-
-<p>package controllers</p>
+<p><code>
+package controllers</p>
 
 <p>import play.api.<em>
 import play.api.mvc.</em></p>
@@ -149,9 +148,8 @@ import play.api.mvc.</em></p>
       Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
             }</p>
 
-<p>}</p>
-
-<p>&lsquo;&rsquo;&#8217;</p>
+<p>}
+</code></p>
 
 <h2>手順2 Hello Worldを表示するhtmlを指定する</h2>
 
@@ -161,7 +159,7 @@ import play.api.mvc.</em></p>
 <strong>views.html.index() => views.html.hello()</strong>
 です。これは<strong>/app/views/index.scala.html</strong>から<strong>/app/views/hello.scala.html</strong>に変更するという意味です。</p>
 
-<p>&lsquo;&rsquo;&lsquo;Scala</p>
+<p><code></p>
 
 <p>package controllers</p>
 
@@ -175,13 +173,13 @@ import play.api.mvc.</em></p>
             }
 }</p>
 
-<p>&lsquo;&rsquo;&#8217;</p>
+<p></code></p>
 
 <h2>手順3 htmlファイルを作成する</h2>
 
 <p>ただこれだけ</p>
 
-<p>&lsquo;&rsquo;&lsquo;html
+<p><code>
 &lt;!DOCTYPE html>
 <html>
 <head lang="en">
@@ -192,7 +190,7 @@ import play.api.mvc.</em></p>
     <h1>Hello World</h1>
 </body>
  </html>
-&rsquo;&lsquo;&rsquo;</p>
+</code></p>
 
 <p>これで実行すればHello Worldが出力されます。</p>
 </div>
