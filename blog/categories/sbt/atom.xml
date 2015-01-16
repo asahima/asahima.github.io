@@ -4,7 +4,7 @@
   <title><![CDATA[Category: sbt | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/sbt/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-17T04:05:23+09:00</updated>
+  <updated>2015-01-17T05:07:56+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -24,8 +24,9 @@
 
 <p>knockoffはScalaのmarkdownパーサーのライブラリで、色々遊んでみようと思い、今回入れることに。しかし、色々やって見れども出力されるのは。。。</p>
 
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]</span></code></pre></td></tr></table></div></figure></p>
+<p>{% codeblock %}
+[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]
+{% endcodeblock %}</p>
 
 <p>そりゃ、downloadすら出来てないんだからunresolved dependencyってでるよね。</p>
 
@@ -34,10 +35,10 @@
 <p>原因はsbtで探しに行くmavenのリポジトリの中にscalaのversionの2.10以降に対応するものが登録されていないためでした。githubの方のリポジトリには2.11に対応と書いてあったので不覚でした。mavenにあるのは2.9.2まで対応しているものでした。</p>
 
 <p>こんな感じで修正してみて、sbtを動かしたら無事knockoffを導入することができました。
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- scalaVersion := &ldquo;2.11.5&rdquo;
-</span><span class='line'>+ scalaVersion := &ldquo;2.9.2&rdquo;</span></code></pre></td></tr></table></div></figure></p>
+{% codeblock %}
+- scalaVersion := &ldquo;2.11.5&rdquo;
++ scalaVersion := &ldquo;2.9.2&rdquo;
+{% endcodeblock %}</p>
 
 <h2>感想</h2>
 
@@ -59,28 +60,23 @@
 
 <p>以下が出力されたエラー</p>
 
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[trace] Stack trace suppressed: run last &lt;em>:update for the full output.
-</span><span class='line'>[error] (&lt;/em>:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure></p>
+<p>{% codeblock %}
+[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+[warn]  ::          UNRESOLVED DEPENDENCIES         ::
+[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
+[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+[trace] Stack trace suppressed: run last <em>:update for the full output.
+[error] (</em>:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]
+{% endcodeblock %}</p>
 
 <p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
 
 <p>scalaのversionの確認方法は
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
-</span><span class='line'>Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure></p>
+{% codeblock %}
+asahima:knockoff_sample/ $ scala -version                             [3:22:32]
+Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]
+{% endcodeblock %}</p>
 
 <p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
 
