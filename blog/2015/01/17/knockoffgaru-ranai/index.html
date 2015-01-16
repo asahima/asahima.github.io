@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sbtを動かしてもライブラリがdownloadされない - メモ帳</title>
+  <title>knockoffが入らない - メモ帳</title>
   <meta name="author" content="asahima">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai">
+  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -95,7 +95,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">Sbtを動かしてもライブラリがdownloadされない</h1>
+      <h1 class="entry-title">Knockoffが入らない</h1>
     
     
       <p class="meta">
@@ -111,48 +111,45 @@
   
 
 
-<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-17T03:55:44+09:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>sbtでライブラリを導入しようとした際に起きたことですが、build.sbtにlibrarydependenciesを記入してcompileしてもライブラリがdownloadされませんでした。</p>
+<div class="entry-content"><p>sbtでknockoffを入れてみようと思った時に起きた話。</p>
 
-<p>以下が出力されたエラー</p>
+<h2>ライブラリが入らない。。。</h2>
+
+<p>knockoffはScalaのmarkdownパーサーのライブラリで、色々遊んでみようと思い、今回入れることに。しかし、色々やって見れども出力されるのは。。。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>そりゃ、downloadすら出来てないんだからunresolved dependencyってでるよね。</p>
+
+<h2>解決</h2>
+
+<p>原因はsbtで探しに行くmavenのリポジトリの中にscalaのversionの2.10以降に対応するものが登録されていないためでした。githubの方のリポジトリには2.11に対応と書いてあったので不覚でした。mavenにあるのは2.9.2まで対応しているものでした。</p>
+
+<p>こんな感じで修正してみて、sbtを動かしたら無事knockoffを導入することができました。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[trace] Stack trace suppressed: run last *:update for the full output.
-</span><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- scalaVersion := "2.11.5"
+</span><span class='line'>+ scalaVersion := "2.9.2"</span></code></pre></td></tr></table></div></figure>
 
-
-<p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
-
-<p>scalaのversionの確認方法は</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
-</span><span class='line'>Scala code runner version 2.11.2 -- Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
 
 <h2>感想</h2>
 
-<p>Scalaの知識もそうですが、sbtに関する知識もないとだめですね。この辺から色々勉強しなければいけないと改めて感じたので、それについてもちょいちょいまとめていきたいと思います。</p>
+<p>mavenのリポジトリ経由ではなくsbtで直接githubを指定する方法ってないんかなーと。</p>
+
+<h2>追記</h2>
+
+<p>普通にgithub上のライブラリを指定する方法があるみたいですね。これで入れてみて動かしてみますかね。
+<a href="http://qiita.com/kawachi/items/71af20a102ecca41561d">Github 上のライブラリや sbt plugin を使う (sbt 0.13 以降用)</a></p>
 </div>
 
 
@@ -175,7 +172,7 @@
   
 
 
-<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-17T03:55:44+09:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -189,7 +186,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai/" >Tweet</a>
   
   
   
@@ -200,14 +197,10 @@
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang/" title="Previous Post:
-        読書:心理統計学の基礎　三章">&laquo; 読書:心理統計学の基礎　三章</a></li>
+        href="/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" title="Previous Post:
+        sbtを動かしてもライブラリがdownloadされない">&laquo; sbtを動かしてもライブラリがdownloadされない</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2015/01/17/knockoffgaru-ranai/"
-        title="Next Post: knockoffが入らない">knockoffが入らない
-        &raquo;</a></li>
       
     </ul>
   </footer>

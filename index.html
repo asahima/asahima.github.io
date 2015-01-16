@@ -97,6 +97,73 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2015/01/17/knockoffgaru-ranai/">Knockoffが入らない</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-17T03:55:44+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>sbtでknockoffを入れてみようと思った時に起きた話。</p>
+
+<h2>ライブラリが入らない。。。</h2>
+
+<p>knockoffはScalaのmarkdownパーサーのライブラリで、色々遊んでみようと思い、今回入れることに。しかし、色々やって見れども出力されるのは。。。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>そりゃ、downloadすら出来てないんだからunresolved dependencyってでるよね。</p>
+
+<h2>解決</h2>
+
+<p>原因はsbtで探しに行くmavenのリポジトリの中にscalaのversionの2.10以降に対応するものが登録されていないためでした。githubの方のリポジトリには2.11に対応と書いてあったので不覚でした。mavenにあるのは2.9.2まで対応しているものでした。</p>
+
+<p>こんな感じで修正してみて、sbtを動かしたら無事knockoffを導入することができました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- scalaVersion := "2.11.5"
+</span><span class='line'>+ scalaVersion := "2.9.2"</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>感想</h2>
+
+<p>mavenのリポジトリ経由ではなくsbtで直接githubを指定する方法ってないんかなーと。</p>
+
+<h2>追記</h2>
+
+<p>普通にgithub上のライブラリを指定する方法があるみたいですね。これで入れてみて動かしてみますかね。
+<a href="http://qiita.com/kawachi/items/71af20a102ecca41561d">Github 上のライブラリや sbt plugin を使う (sbt 0.13 以降用)</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/">Sbtを動かしてもライブラリがdownloadされない</a></h1>
     
     
@@ -762,6 +829,10 @@
     <li class="nav-header">Recent Posts</li>
     
       <li class="post">
+        <a href="/blog/2015/01/17/knockoffgaru-ranai/">knockoffが入らない</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/">sbtを動かしてもライブラリがdownloadされない</a>
       </li>
     
@@ -775,10 +846,6 @@
     
       <li class="post">
         <a href="/blog/2015/01/15/scaladewikiwotukututemitai/">ScalaでWikiをつくりたい</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/15/scalafalsemian-qiang/">scalaの勉強</a>
       </li>
     
   </ul>
