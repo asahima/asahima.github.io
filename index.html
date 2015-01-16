@@ -97,6 +97,123 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/">Sbtを動かしてもライブラリがdownloadされない</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>sbtでライブラリを導入しようとした際に起きたことですが、build.sbtにlibrarydependenciesを記入してcompileしてもライブラリがdownloadされませんでした。</p>
+
+<p>以下が出力されたエラー</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[trace] Stack trace suppressed: run last *:update for the full output.
+</span><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
+
+<p>scalaのversionの確認方法は</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
+</span><span class='line'>Scala code runner version 2.11.2 -- Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
+
+<h2>感想</h2>
+
+<p>Scalaの知識もそうですが、sbtに関する知識もないとだめですね。この辺から色々勉強しなければいけないと改めて感じたので、それについてもちょいちょいまとめていきたいと思います。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang/">読書:心理統計学の基礎　三章</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-17T02:17:01+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>共分散と相関係数</h2>
+
+<ul>
+<li>共分散
+
+<ul>
+<li>対象としている変数同士に相関があるかを知るために指標</li>
+<li>共分散が正なら正の相関、負なら負の相関がある</li>
+</ul>
+</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2015/01/15/play2dehello-world/">play2でHello World</a></h1>
     
     
@@ -645,6 +762,14 @@
     <li class="nav-header">Recent Posts</li>
     
       <li class="post">
+        <a href="/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/">sbtを動かしてもライブラリがdownloadされない</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang/">読書:心理統計学の基礎　三章</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/15/play2dehello-world/">play2でHello World</a>
       </li>
     
@@ -654,10 +779,6 @@
     
       <li class="post">
         <a href="/blog/2015/01/15/scalafalsemian-qiang/">scalaの勉強</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/07/chu-tou-gao/">初投稿</a>
       </li>
     
   </ul>

@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>初投稿 - メモ帳</title>
+  <title>sbtを動かしてもライブラリがdownloadされない - メモ帳</title>
   <meta name="author" content="asahima">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://asahima.github.io/blog/2014/10/07/chu-tou-gao">
+  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -95,7 +95,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">初投稿</h1>
+      <h1 class="entry-title">Sbtを動かしてもライブラリがdownloadされない</h1>
     
     
       <p class="meta">
@@ -111,27 +111,48 @@
   
 
 
-<time datetime="2014-10-07T20:18:55+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>周囲から導入が難しいと言われて、ちょっと試してみようというノリでgithub pagesにoctpressを入れた次第です。どうせということで、自分の興味のあるトピックについて勉強したことを書いていければと思っています。</p>
+<div class="entry-content"><p>sbtでライブラリを導入しようとした際に起きたことですが、build.sbtにlibrarydependenciesを記入してcompileしてもライブラリがdownloadされませんでした。</p>
 
-<p>興味のあるトピックは</p>
+<p>以下が出力されたエラー</p>
 
-<ul>
-<li>プログラミング</li>
-<li>機械学習</li>
-<li>自然言語処理</li>
-</ul>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[trace] Stack trace suppressed: run last *:update for the full output.
+</span><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure>
 
 
-<p>です。</p>
+<p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
 
-<p>よろしくお願いします</p>
+<p>scalaのversionの確認方法は</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
+</span><span class='line'>Scala code runner version 2.11.2 -- Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
+
+<h2>感想</h2>
+
+<p>Scalaの知識もそうですが、sbtに関する知識もないとだめですね。この辺から色々勉強しなければいけないと改めて感じたので、それについてもちょいちょいまとめていきたいと思います。</p>
 </div>
 
 
@@ -154,15 +175,21 @@
   
 
 
-<time datetime="2014-10-07T20:18:55+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sbt/'>sbt</a>, <a class='category' href='/blog/categories/scala/'>scala</a>, <a class='category' href='/blog/categories/puroguramingu/'>プログラミング</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2014/10/07/chu-tou-gao/" data-via="" data-counturl="http://asahima.github.io/blog/2014/10/07/chu-tou-gao/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" >Tweet</a>
   
   
   
@@ -172,11 +199,11 @@
     
     <ul class="pager">
       
-      <li><a href="/blog/archives">Blog Archives</a></li>
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang/" title="Previous Post:
+        読書:心理統計学の基礎　三章">&laquo; 読書:心理統計学の基礎　三章</a></li>
       
-      <li class="next"><a class="basic-alignment right" href="/blog/2015/01/15/scalafalsemian-qiang/"
-        title="Next Post: scalaの勉強">scalaの勉強
-        &raquo;</a></li>
+      <li><a href="/blog/archives">Blog Archives</a></li>
       
     </ul>
   </footer>

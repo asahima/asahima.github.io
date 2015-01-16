@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 統計学 | メモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/tong-ji-xue/atom.xml" rel="self"/>
+  <link href="http://asahima.github.io/"/>
+  <updated>2015-01-17T03:28:28+09:00</updated>
+  <id>http://asahima.github.io/</id>
+  <author>
+    <name><![CDATA[asahima]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[読書:心理統計学の基礎　三章]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang/"/>
+    <updated>2015-01-17T02:17:01+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang</id>
+    <content type="html"><![CDATA[<h2>共分散と相関係数</h2>
+
+<ul>
+<li>共分散
+
+<ul>
+<li>対象としている変数同士に相関があるかを知るために指標</li>
+<li>共分散が正なら正の相関、負なら負の相関がある</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scala | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-15T21:48:33+09:00</updated>
+  <updated>2015-01-17T03:28:28+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,46 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[sbtを動かしてもライブラリがdownloadされない]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/"/>
+    <updated>2015-01-17T03:13:55+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai</id>
+    <content type="html"><![CDATA[<p>sbtでライブラリを導入しようとした際に起きたことですが、build.sbtにlibrarydependenciesを記入してcompileしてもライブラリがdownloadされませんでした。</p>
+
+<p>以下が出力されたエラー</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[trace] Stack trace suppressed: run last &lt;em>:update for the full output.
+</span><span class='line'>[error] (&lt;/em>:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure></p>
+
+<p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
+
+<p>scalaのversionの確認方法は
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
+</span><span class='line'>Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure></p>
+
+<p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
+
+<h2>感想</h2>
+
+<p>Scalaの知識もそうですが、sbtに関する知識もないとだめですね。この辺から色々勉強しなければいけないと改めて感じたので、それについてもちょいちょいまとめていきたいと思います。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[play2でHello World]]></title>
