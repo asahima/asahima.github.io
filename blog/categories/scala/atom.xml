@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scala | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-18T06:00:55+09:00</updated>
+  <updated>2015-01-18T06:02:28+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -32,33 +32,64 @@
 
 <p>以下が自分が使っていたbuild.sbtの一部です。私は手元にインストールしているmysqlを使いたかったので、そのためのライブラリも記述しています。</p>
 
-<p>{% codeblock %}
-libraryDependencies ++= Seq(
-    &ldquo;org.slf4j&rdquo; % &ldquo;slf4j-nop&rdquo; % &ldquo;1.6.4&rdquo;,
-    &ldquo;mysql&rdquo; % &ldquo;mysql-connector-java&rdquo; % &ldquo;5.1.28&rdquo;,
-    &ldquo;com.typesafe.play&rdquo; %% &ldquo;play-slick&rdquo; % &ldquo;0.8.1&rdquo;
-)
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>libraryDependencies ++= Seq(
+</span><span class='line'>    &ldquo;org.slf4j&rdquo; % &ldquo;slf4j-nop&rdquo; % &ldquo;1.6.4&rdquo;,
+</span><span class='line'>    &ldquo;mysql&rdquo; % &ldquo;mysql-connector-java&rdquo; % &ldquo;5.1.28&rdquo;,
+</span><span class='line'>    &ldquo;com.typesafe.play&rdquo; %% &ldquo;play-slick&rdquo; % &ldquo;0.8.1&rdquo;
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure></p>
 
 <h4>手順2 application.confを修正する</h4>
 
 <p>application.confにslickを使うための設定を記述していきます。この中で大事なのがslick.defaultの部分です。slickはmodelsにtableの定義を書くとtableが生成されるのですが、これを記述しないと生成されないみたいです。この辺の設定についてはまだ良くわかってないので、時間があるときに調べられればと思います。</p>
 
-<p>{% codeblock %}
-db.default.driver=com.mysql.jdbc.Driver
-db.default.url=&ldquo;jdbc:mysql://localhost/tododb&rdquo;
-db.default.user=&ldquo;&rdquo;
-db.default.password=&ldquo;&rdquo;
-slick.default=&ldquo;models.*
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>db.default.driver=com.mysql.jdbc.Driver
+</span><span class='line'>db.default.url=&ldquo;jdbc:mysql://localhost/tododb&rdquo;
+</span><span class='line'>db.default.user=&ldquo;&rdquo;
+</span><span class='line'>db.default.password=&ldquo;&rdquo;
+</span><span class='line'>slick.default=&ldquo;models.*</span></code></pre></td></tr></table></div></figure></p>
 
 <h4>手順3 動かす</h4>
 
-<p>あとはrunをすればいいです。初回のrunでtableを生成するかどうか聞いてくるので、生成してください</p>
+<p>あとはrunをすればいいです。初回のrunでtableを生成するかどうか聞いてくるので、生成してください
+<img src="~/Desktop/gen_alert.png" alt="alert" /></p>
 
 <h3>感想</h3>
 
 <p>ホントはtableの定義の書き方もまとめたいんですが、自分でもよくわかってない部分が多いので、その辺が理解できたら書こうと思います。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[%と%%の違いに苦労する]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/17/percent-to-percent-percent-falsewei-iniku-lao-suru/"/>
+    <updated>2015-01-17T04:59:27+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/17/percent-to-percent-percent-falsewei-iniku-lao-suru</id>
+    <content type="html"><![CDATA[<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scalaVersion := &ldquo;2.11.5&rdquo;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>// slickのscalaのversionを自動で補完する
+</span><span class='line'>&ldquo;com.typesafe.slick&rdquo; %% &ldquo;slick&rdquo; % &ldquo;2.1.0&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>// &lsquo;&rsquo; のscalaのversionを自動で補完しない
+</span><span class='line'>&ldquo;com.typesafe.slick&rdquo; % &ldquo;slick_2.11&rdquo; % &ldquo;2.1.0</span></code></pre></td></tr></table></div></figure></p>
+
+<p>の二種類があるみたいです。まぁ、細かくいうと後に何か付け足したりできるみたいですけど。</p>
 ]]></content>
   </entry>
   
@@ -73,9 +104,8 @@ slick.default=&ldquo;models.*
 
 <p>knockoffはScalaのmarkdownパーサーのライブラリで、色々遊んでみようと思い、今回入れることに。しかし、色々やって見れども出力されるのは。。。</p>
 
-<p>{% codeblock %}
-[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]</span></code></pre></td></tr></table></div></figure></p>
 
 <p>そりゃ、downloadすら出来てないんだからunresolved dependencyってでるよね。</p>
 
@@ -84,10 +114,10 @@ slick.default=&ldquo;models.*
 <p>原因はsbtで探しに行くmavenのリポジトリの中にscalaのversionの2.10以降に対応するものが登録されていないためでした。githubの方のリポジトリには2.11に対応と書いてあったので不覚でした。mavenにあるのは2.9.2まで対応しているものでした。</p>
 
 <p>こんな感じで修正してみて、sbtを動かしたら無事knockoffを導入することができました。
-{% codeblock %}
-- scalaVersion := &ldquo;2.11.5&rdquo;
-+ scalaVersion := &ldquo;2.9.2&rdquo;
-{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- scalaVersion := &ldquo;2.11.5&rdquo;
+</span><span class='line'>+ scalaVersion := &ldquo;2.9.2&rdquo;</span></code></pre></td></tr></table></div></figure></p>
 
 <h2>感想</h2>
 
@@ -109,23 +139,28 @@ slick.default=&ldquo;models.*
 
 <p>以下が出力されたエラー</p>
 
-<p>{% codeblock %}
-[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-[warn]  ::          UNRESOLVED DEPENDENCIES         ::
-[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
-[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-[trace] Stack trace suppressed: run last <em>:update for the full output.
-[error] (</em>:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
+</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class='line'>[trace] Stack trace suppressed: run last &lt;em>:update for the full output.
+</span><span class='line'>[error] (&lt;/em>:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure></p>
 
 <p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
 
 <p>scalaのversionの確認方法は
-{% codeblock %}
-asahima:knockoff_sample/ $ scala -version                             [3:22:32]
-Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]
-{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
+</span><span class='line'>Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure></p>
 
 <p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
 
@@ -158,21 +193,34 @@ Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]
 
 <p>最初に出力されるApplication.scalanのソースコードは以下のようになっていました。これは<strong>/index</strong>にアクセスした際に、<strong>/app/views/index.scala.html</strong>を返すという意味になります。okは正しいrequestの場合みたいです。なので、ただHello Worldを表示したければ、この辺をいじればいいみたい。</p>
 
-<p>{% codeblock %}
-package controllers</p>
-
-<p>import play.api.<em>
-import play.api.mvc.</em></p>
-
-<p>object Application extends Controller {</p>
-
-<p>  def index = Action {
-      Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
-            }</p>
-
-<p>}</p>
-
-<p>{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>import play.api.&lt;em>
+</span><span class='line'>import play.api.mvc.&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>object Application extends Controller {&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  def index = Action {
+</span><span class='line'>      Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
+</span><span class='line'>            }&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <h2>手順2 Hello Worldを表示するhtmlを指定する</h2>
 
@@ -182,39 +230,65 @@ import play.api.mvc.</em></p>
 <strong>views.html.index() => views.html.hello()</strong>
 です。これは<strong>/app/views/index.scala.html</strong>から<strong>/app/views/hello.scala.html</strong>に変更するという意味です。</p>
 
-<p>{% codeblock %}
-package controllers</p>
-
-<p>import play.api.<em>
-import play.api.mvc.</em></p>
-
-<p>object Application extends Controller {</p>
-
-<p>  def index = Action {
-      Ok(views.html.hello())
-            }
-}</p>
-
-<p>{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>import play.api.&lt;em>
+</span><span class='line'>import play.api.mvc.&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>object Application extends Controller {&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  def index = Action {
+</span><span class='line'>      Ok(views.html.hello())
+</span><span class='line'>            }
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <h2>手順3 htmlファイルを作成する</h2>
 
 <p>ただこれだけ</p>
 
-<p>{% codeblock %}</p>
-
-<p>&lt;!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
- </html></p>
-
-<p>{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>&lt;!DOCTYPE html>
+</span><span class='line'>&lt;html>
+</span><span class='line'>&lt;head lang="en">
+</span><span class='line'>  &lt;meta charset="UTF-8">
+</span><span class='line'>    &lt;title>&lt;/title>
+</span><span class='line'>&lt;/head>
+</span><span class='line'>&lt;body>
+</span><span class='line'>    &lt;h1>Hello World&lt;/h1>
+</span><span class='line'>&lt;/body>
+</span><span class='line'> &lt;/html>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <p>これで実行すればHello Worldが出力されます。</p>
 
@@ -222,91 +296,44 @@ import play.api.mvc.</em></p>
 
 <p>Hello Worldを出力する上で、routingを全く気にしていないですが、実際にアプリケーションを作る上でroutingは必須です。簡単にroutingをする方法を見てみます。</p>
 
-<p>{% codeblock %}</p>
-
-<h1>Routes</h1>
-
-<h1>This file defines all application routes (Higher priority routes first)</h1>
-
-<h1>~~~~</h1>
-
-<h1>Home page</h1>
-
-<p>GET     /                           controllers.Application.index</p>
-
-<h1>Map static resources from the /public folder to the /assets URL path</h1>
-
-<p>GET     /assets/*file               controllers.Assets.at(path=&ldquo;/public&rdquo;, file)</p>
-
-<p>{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Routes&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>This file defines all application routes (Higher priority routes first)&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>~~~~&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Home page&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p>GET     /                           controllers.Application.index&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Map static resources from the /public folder to the /assets URL path&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p>GET     /assets/*file               controllers.Assets.at(path=&ldquo;/public&rdquo;, file)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
 
 <p>この中で変更する部分は
 <strong>GET     /                           controllers.Application.index</strong>
 です。これは<strong>/</strong>にgetを投げたときに<strong>/app/controllers/Application.scalaのindex</strong>を表示するという意味です(多分)。なので、この辺を自分のやりたいようにできます(ある程度までは)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ScalaでWikiをつくりたい]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai/"/>
-    <updated>2015-01-15T03:07:05+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/15/scaladewikiwotukututemitai</id>
-    <content type="html"><![CDATA[<p>研究やプログラミングをする際に、何か気になったことやこれは覚えておきたいなと思ったことはいつもローカルで動かしているWikiに書き込んでいるのですが、最近自分で使っているWikiに不満を覚えたので、勉強がてらに挑戦してみることにしみました。</p>
-
-<h2>欲しい機能</h2>
-
-<p>自分で使う上で欲しい機能は以下のようなものです。</p>
-
-<ul>
-<li>記事の投稿</li>
-<li>&lsquo;&rsquo; 削除</li>
-<li>&lsquo;&rsquo; 編集</li>
-<li>&lsquo;&rsquo; 検索</li>
-<li>&lsquo;&rsquo; タグ付与</li>
-<li>markdownでの記入</li>
-<li>markdownのpreview</li>
-</ul>
-
-
-<h2>何で作るか</h2>
-
-<ul>
-<li>言語
-
-<ul>
-<li>Scala</li>
-</ul>
-</li>
-<li>使いたいライブラリ
-
-<ul>
-<li>Play2.x or Skinny
-
-<ul>
-<li>Webフレームワーク</li>
-<li>フルスタックらしい</li>
-</ul>
-</li>
-<li>Slick
-
-<ul>
-<li>ORM</li>
-</ul>
-</li>
-<li>knockoff
-
-<ul>
-<li>markdownをHTMLに変換するライブラリらしい</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<p>まぁ、こんな構成でぼちぼちやっていこうと思います。その過程を書いていければと思います。</p>
-
-<p>では</p>
 ]]></content>
   </entry>
   

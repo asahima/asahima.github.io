@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sbtを動かしてもライブラリがdownloadされない - メモ帳</title>
+  <title>play-slickを使ってみる - メモ帳</title>
   <meta name="author" content="asahima">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai">
+  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -95,7 +95,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">Sbtを動かしてもライブラリがdownloadされない</h1>
+      <h1 class="entry-title">Play-slickを使ってみる</h1>
     
     
       <p class="meta">
@@ -111,48 +111,63 @@
   
 
 
-<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-18T05:08:06+09:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>sbtでライブラリを導入しようとした際に起きたことですが、build.sbtにlibrarydependenciesを記入してcompileしてもライブラリがdownloadされませんでした。</p>
+<div class="entry-content"><p>PlayでDBを使うときのライブラリでplay-slickというものがあって、今回はそれを試してみたというものです。</p>
 
-<p>以下が出力されたエラー</p>
+<h3>play-slickとは</h3>
+
+<p><a href="https://github.com/playframework/play-slick">play-slick</a>はScalaのORマッパーライブラリであるSlickをplayで使いやすい形にするというライブラリです。slick自体がとても使いやすいORマッパーであるため、それがPlayで使えると非常に便利です。</p>
+
+<h3>play-slickの使い方</h3>
+
+<p>自分がとりえあず使ってみようという形でやってみたものを簡単にまとめようと思います。</p>
+
+<h4>手順1 sbtでplay-slickをインストールする</h4>
+
+<p>以下が自分が使っていたbuild.sbtの一部です。私は手元にインストールしているmysqlを使いたかったので、そのためのライブラリも記述しています。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[trace] Stack trace suppressed: run last *:update for the full output.
-</span><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>libraryDependencies ++= Seq(
+</span><span class='line'>    "org.slf4j" % "slf4j-nop" % "1.6.4",
+</span><span class='line'>    "mysql" % "mysql-connector-java" % "5.1.28",
+</span><span class='line'>    "com.typesafe.play" %% "play-slick" % "0.8.1"
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
 
 
-<p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
+<h4>手順2 application.confを修正する</h4>
 
-<p>scalaのversionの確認方法は</p>
+<p>application.confにslickを使うための設定を記述していきます。この中で大事なのがslick.defaultの部分です。slickはmodelsにtableの定義を書くとtableが生成されるのですが、これを記述しないと生成されないみたいです。この辺の設定についてはまだ良くわかってないので、時間があるときに調べられればと思います。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
-</span><span class='line'>Scala code runner version 2.11.2 -- Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>db.default.driver=com.mysql.jdbc.Driver
+</span><span class='line'>db.default.url="jdbc:mysql://localhost/tododb"
+</span><span class='line'>db.default.user=""
+</span><span class='line'>db.default.password=""
+</span><span class='line'>slick.default="models.\*</span></code></pre></td></tr></table></div></figure>
 
 
-<p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
+<h4>手順3 動かす</h4>
 
-<h2>感想</h2>
+<p>あとはrunをすればいいです。初回のrunでtableを生成するかどうか聞いてくるので、生成してください
+<img src="~/Desktop/gen_alert.png" alt="alert" /></p>
 
-<p>Scalaの知識もそうですが、sbtに関する知識もないとだめですね。この辺から色々勉強しなければいけないと改めて感じたので、それについてもちょいちょいまとめていきたいと思います。</p>
+<h3>感想</h3>
+
+<p>ホントはtableの定義の書き方もまとめたいんですが、自分でもよくわかってない部分が多いので、その辺が理解できたら書こうと思います。</p>
 </div>
 
 
@@ -175,12 +190,12 @@
   
 
 
-<time datetime="2015-01-17T03:13:55+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-18T05:08:06+09:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sbt/'>sbt</a>, <a class='category' href='/blog/categories/scala/'>scala</a>, <a class='category' href='/blog/categories/puroguramingu/'>プログラミング</a>
+    <a class='category' href='/blog/categories/play2-dot-x/'>play2.x</a>, <a class='category' href='/blog/categories/scala/'>scala</a>, <a class='category' href='/blog/categories/puroguramingu/'>プログラミング</a>
   
 </span>
 
@@ -189,7 +204,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru/" >Tweet</a>
   
   
   
@@ -200,14 +215,10 @@
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2015/01/17/du-shu-xin-li-tong-ji-xue-falseji-chu-san-zhang/" title="Previous Post:
-        読書:心理統計学の基礎　三章">&laquo; 読書:心理統計学の基礎　三章</a></li>
+        href="/blog/2015/01/17/percent-to-percent-percent-falsewei-iniku-lao-suru/" title="Previous Post:
+        %と%%の違いに苦労する">&laquo; %と%%の違いに苦労する</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2015/01/17/knockoffgaru-ranai/"
-        title="Next Post: knockoffが入らない">knockoffが入らない
-        &raquo;</a></li>
       
     </ul>
   </footer>
