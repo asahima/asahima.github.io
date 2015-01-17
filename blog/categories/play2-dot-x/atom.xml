@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: play2.x | メモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/play2-dot-x/atom.xml" rel="self"/>
+  <link href="http://asahima.github.io/"/>
+  <updated>2015-01-18T05:52:22+09:00</updated>
+  <id>http://asahima.github.io/</id>
+  <author>
+    <name><![CDATA[asahima]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[play-slickを使ってみる]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru/"/>
+    <updated>2015-01-18T05:08:06+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru</id>
+    <content type="html"><![CDATA[<p>PlayでDBを使うときのライブラリでplay-slickというものがあって、今回はそれを試してみたというものです。</p>
+
+<h3>play-slickとは</h3>
+
+<p><a href="https://github.com/playframework/play-slick">play-slick</a>はScalaのORマッパーライブラリであるSlickをplayで使いやすい形にするというライブラリです。slick自体がとても使いやすいORマッパーであるため、それがPlayで使えると非常に便利です。</p>
+
+<h3>play-slickの使い方</h3>
+
+<p>自分がとりえあず使ってみようという形でやってみたものを簡単にまとめようと思います。</p>
+
+<h4>手順1 sbtでplay-slickをインストールする</h4>
+
+<p>以下が自分が使っていたbuild.sbtの一部です。私は手元にインストールしているmysqlを使いたかったので、そのためのライブラリも記述しています。</p>
+
+<p>{% codeblock %}
+libraryDependencies ++= Seq(
+    &ldquo;org.slf4j&rdquo; % &ldquo;slf4j-nop&rdquo; % &ldquo;1.6.4&rdquo;,
+    &ldquo;mysql&rdquo; % &ldquo;mysql-connector-java&rdquo; % &ldquo;5.1.28&rdquo;,
+    &ldquo;com.typesafe.play&rdquo; %% &ldquo;play-slick&rdquo; % &ldquo;0.8.1&rdquo;
+)
+{% endcodeblock %}</p>
+
+<h4>手順2 application.confを修正する</h4>
+
+<p>application.confにslickを使うための設定を記述していきます。この中で大事なのがslick.defaultの部分です。slickはmodelsにtableの定義を書くとtableが生成されるのですが、これを記述しないと生成されないみたいです。この辺の設定についてはまだ良くわかってないので、時間があるときに調べられればと思います。</p>
+
+<p>{% codeblock %}
+db.default.driver=com.mysql.jdbc.Driver
+db.default.url=&ldquo;jdbc:mysql://localhost/tododb&rdquo;
+db.default.user=&ldquo;&rdquo;
+db.default.password=&ldquo;&rdquo;
+slick.default=&ldquo;models.*
+{% endcodeblock %}</p>
+
+<h4>手順3 動かす</h4>
+
+<p>あとはrunをすればいいです。初回のrunでtableを生成するかどうか聞いてくるので、生成してください
+<img src="~/Desktop/gen_alert.png" alt="alert" /></p>
+
+<h3>感想</h3>
+
+<p>ホントはtableの定義の書き方もまとめたいんですが、自分でもよくわかってない部分が多いので、その辺が理解できたら書こうと思います。</p>
+]]></content>
+  </entry>
+  
+</feed>

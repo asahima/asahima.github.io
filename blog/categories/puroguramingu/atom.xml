@@ -4,7 +4,7 @@
   <title><![CDATA[Category: プログラミング | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/puroguramingu/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-17T05:07:56+09:00</updated>
+  <updated>2015-01-18T05:52:22+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[play-slickを使ってみる]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru/"/>
+    <updated>2015-01-18T05:08:06+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/18/play-slickwoshi-tutemiru</id>
+    <content type="html"><![CDATA[<p>PlayでDBを使うときのライブラリでplay-slickというものがあって、今回はそれを試してみたというものです。</p>
+
+<h3>play-slickとは</h3>
+
+<p><a href="https://github.com/playframework/play-slick">play-slick</a>はScalaのORマッパーライブラリであるSlickをplayで使いやすい形にするというライブラリです。slick自体がとても使いやすいORマッパーであるため、それがPlayで使えると非常に便利です。</p>
+
+<h3>play-slickの使い方</h3>
+
+<p>自分がとりえあず使ってみようという形でやってみたものを簡単にまとめようと思います。</p>
+
+<h4>手順1 sbtでplay-slickをインストールする</h4>
+
+<p>以下が自分が使っていたbuild.sbtの一部です。私は手元にインストールしているmysqlを使いたかったので、そのためのライブラリも記述しています。</p>
+
+<p>{% codeblock %}
+libraryDependencies ++= Seq(
+    &ldquo;org.slf4j&rdquo; % &ldquo;slf4j-nop&rdquo; % &ldquo;1.6.4&rdquo;,
+    &ldquo;mysql&rdquo; % &ldquo;mysql-connector-java&rdquo; % &ldquo;5.1.28&rdquo;,
+    &ldquo;com.typesafe.play&rdquo; %% &ldquo;play-slick&rdquo; % &ldquo;0.8.1&rdquo;
+)
+{% endcodeblock %}</p>
+
+<h4>手順2 application.confを修正する</h4>
+
+<p>application.confにslickを使うための設定を記述していきます。この中で大事なのがslick.defaultの部分です。slickはmodelsにtableの定義を書くとtableが生成されるのですが、これを記述しないと生成されないみたいです。この辺の設定についてはまだ良くわかってないので、時間があるときに調べられればと思います。</p>
+
+<p>{% codeblock %}
+db.default.driver=com.mysql.jdbc.Driver
+db.default.url=&ldquo;jdbc:mysql://localhost/tododb&rdquo;
+db.default.user=&ldquo;&rdquo;
+db.default.password=&ldquo;&rdquo;
+slick.default=&ldquo;models.*
+{% endcodeblock %}</p>
+
+<h4>手順3 動かす</h4>
+
+<p>あとはrunをすればいいです。初回のrunでtableを生成するかどうか聞いてくるので、生成してください
+<img src="~/Desktop/gen_alert.png" alt="alert" /></p>
+
+<h3>感想</h3>
+
+<p>ホントはtableの定義の書き方もまとめたいんですが、自分でもよくわかってない部分が多いので、その辺が理解できたら書こうと思います。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[knockoffが入らない]]></title>
@@ -258,213 +308,6 @@ import play.api.mvc.</em></p>
 <p>まぁ、こんな構成でぼちぼちやっていこうと思います。その過程を書いていければと思います。</p>
 
 <p>では</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[scalaの勉強]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/15/scalafalsemian-qiang/"/>
-    <updated>2015-01-15T01:07:26+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/15/scalafalsemian-qiang</id>
-    <content type="html"><![CDATA[<p>ちょっとした事情でScalaを使う必要が出てきたため、急いで勉強することにしました。細かい部分は使っていく上で調べればいいと思うので、今回は簡単な部分を書いていきたいと思います。</p>
-
-<h2>Scala</h2>
-
-<ul>
-<li><p>Scalaとは</p>
-
-<ul>
-<li>JVM上で動くプログラミング言語
-
-<ul>
-<li>javaのライブラリを使える</li>
-</ul>
-</li>
-<li>関数型とオブジェクト志向のハイブリッドの言語</li>
-<li>基本的な内容はJavaに近い？</li>
-<li>オブジェクトは基本的にimmutable</li>
-</ul>
-</li>
-<li><p>関数型</p>
-
-<ul>
-<li>関数が完結しているため、リファクタ・テストがしやすい</li>
-<li>関数がファーストクラス
-
-<ul>
-<li>関数自体を引数または返り値に指定することが可能</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>データ型</h3>
-
-<ul>
-<li>Byte</li>
-<li>Short</li>
-<li>Int</li>
-<li>Long</li>
-<li>Char</li>
-<li>String</li>
-<li>Float</li>
-<li>Double</li>
-<li><p>Boolean</p></li>
-<li><p>デフォルト値としてアンダースコアを使うことができる</p>
-
-<ul>
-<li>変数宣言でvarを使った際</li>
-</ul>
-</li>
-<li>Scalaの型はプリミティブではなく全部オブジェクト
-
-<ul>
-<li>値に対してメソッドを呼ぶことができる？</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>配列</h3>
-
-<ul>
-<li>配列の宣言方法
-
-<ul>
-<li>var l = new Array<a href="%E3%82%B5%E3%82%A4%E3%82%BA">型</a></li>
-</ul>
-</li>
-<li>配列のindexは[]ではなくて()で指定する
-
-<ul>
-<li>他の言語とは違って、メソッドのシンタックスシュガーみたいな感じ？</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>遅延評価</h3>
-
-<ul>
-<li>参照されるまで変数自体を評価しない</li>
-<li>これをすることで高速化が図れるらしい
-
-<ul>
-<li>メモリも節約できる？</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>パターンマッチ</h3>
-
-<ul>
-<li>Scalaはこれが非常に強力らしい</li>
-<li>matchを使う</li>
-<li>caseの部分に記述する条件にはクラスのオブジェクトを使用することができる</li>
-<li>matchのワイルドカードとして_を指定する
-
-<ul>
-<li>ワイルドカードを指定していないパターンマッチで、パターン外の物が出現するとMatchErrorがでる</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>関数</h3>
-
-<ul>
-<li>可変長の引数
-
-<ul>
-<li>関数の引数で「引数名:引数*」で表現する</li>
-</ul>
-</li>
-<li>プレースホルダ
-
-<ul>
-<li>関数の中でその値が複数回使われない場合に引数を_で表現する</li>
-</ul>
-</li>
-<li>部分適用
-
-<ul>
-<li>引数の一部を指定した関数を作る？</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>クラス・オブジェクト</h3>
-
-<ul>
-<li><p>クラス</p>
-
-<ul>
-<li>基本コンストラクタ
-
-<ul>
-<li>初期化の処理はクラス内部に直接記述する</li>
-<li>クラスの引数にval・varを指定しないと、クラス外からアクセスできなくなる</li>
-</ul>
-</li>
-<li>補助コンストラクタ
-
-<ul>
-<li>コンストラクタを複数定義しなければならない場合に利用される</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>コンパニオンオブジェクト</p>
-
-<ul>
-<li>あるクラスに対して全く同じスコープ・名前で定義されたシングルトンオブジェクト</li>
-<li>コンパニオンクラスのprivateなフィールドやメソッドに対してアクセスすることができる</li>
-<li>applyはファクトリみたいな使い方をする</li>
-</ul>
-</li>
-<li><p>unapplyを定義することでパターンマッチに使える</p></li>
-<li><p>case class</p>
-
-<ul>
-<li>パターンマッチで使用するような処理などを事前に定義したクラスを定義する仕組み</li>
-<li>applyが定義されるのでnewを使用せずインスタンス化ができる
-
-<ul>
-<li>内部にでnewしたインスタンスが生成され、returnされる？</li>
-</ul>
-</li>
-<li>コンストラクタの引数は全てvalで宣言される</li>
-<li>unapplyが自動で定義</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Trait</h3>
-
-<ul>
-<li>javaのinterfaceとは異なり、実装を持つことができる
-
-<ul>
-<li>interfaceの場合だと、毎回interfaceに定義されているメソッドの内部処理を記述しなければならなくなる</li>
-</ul>
-</li>
-</ul>
-
-
-<p>まだ大分残ってるけど、力尽きたのでこんなもんで。残りはやる気がでたらやる</p>
-
-<h2>参考文献</h2>
-
-<ul>
-<li><a href="http://www.amazon.co.jp/Scala%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%A9%E3%83%96%E3%83%AB%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E7%AC%AC2%E7%89%88-Martin-Odersky/dp/4844330845/ref=sr_1_1?ie=UTF8&amp;qid=1421258688&amp;sr=8-1&amp;keywords=Scala">Scalaスケーラブルプログラミング</a></li>
-<li><a href="http://www.amazon.co.jp/Guide-Scala%E3%83%BCScala%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A5%E9%96%80-%E4%B8%AD%E6%9D%91%E4%BF%AE%E5%A4%AA-ebook/dp/B00BOBYZTQ/ref=sr_1_3?ie=UTF8&amp;qid=1421258688&amp;sr=8-3&amp;keywords=Scala">Guide to ScalaーScalaプログラミング入門</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
