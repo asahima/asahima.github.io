@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: breeze | メモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/breeze/atom.xml" rel="self"/>
+  <link href="http://asahima.github.io/"/>
+  <updated>2015-02-07T04:15:47+09:00</updated>
+  <id>http://asahima.github.io/</id>
+  <author>
+    <name><![CDATA[asahima]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[breeze-vizのサンプルを動かしてみた]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita/"/>
+    <updated>2015-02-07T03:16:41+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p>今現在、機械学習・Scalaの勉強がてらに<a href="http://gihyo.jp/dev/serial/01/machine-learning">機械学習　はじめよう</a>で解説されているものをScalaで実装するということを行なっています。元の記事ではアルゴリズムをPythonで実装しており、線形代数のようなものを扱うためのライブラリであるnumpyやグラフ描画用のmatplotlibを利用しています。</p>
+
+<p>私はScalaで実装するのですが、PythonにnumpyやmatplotlibがあるようにScalaにも同じようなものが存在していて、numpyはbreeze、matplotlibはbreeze-vizといったライブラリと置き換えることができます（たぶん）</p>
+
+<h2>breezeとは</h2>
+
+<p>breezeとはScalaNLPというscalaで自然言語処理・機械学習などを扱うためのプロジェクトで開発されている機械学習・数的計算用のライブラリです。ScalaNLP自体はbreeze以外にもEpicやPuckというようなものが提供されています。Epicはよくわからないですが、PuckはBerkeley NLP Groupで開発されているBerkeleyParserをGPU上で動作させるために実装したものみたいです。
+breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用のライブラリになっています。</p>
+
+<h2>今回やったこと</h2>
+
+<p>breezeが用意している<a href="https://github.com/scalanlp/breeze/wiki/Quickstart">QuickStart</a>のうちのbreeze-vizの部分を試したというものです。</p>
+
+<h3>環境</h3>
+
+<ul>
+<li>MacOSX
+
+<ul>
+<li>10.9.5</li>
+</ul>
+</li>
+<li>Scala
+
+<ul>
+<li>2.11.2</li>
+</ul>
+</li>
+<li>sbt
+
+<ul>
+<li>0.13.6</li>
+</ul>
+</li>
+</ul>
+
+
+<p>ソースコード自体はQuickStartとまったく一緒ですが、一応乗っけておきます。関数の使い方などどこかmatplotlibを彷彿とさせます(公式にはmatlab likeと書いているのでmatlabもこんな感じなんですかね)。</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import breeze.linalg.&lt;em>
+</span><span class='line'>import breeze.plot.&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>object Main extends App {
+</span><span class='line'>  val f = Figure()
+</span><span class='line'>  val p = f.subplot(0)
+</span><span class='line'>  val x = linspace(0.0, 1.0)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  p += plot(x ,x :^ 2.0)
+</span><span class='line'>  p += plot(x ,x :^ 3.0, &lsquo;.&rsquo;)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  p.xlabel = &ldquo;x axis&rdquo;
+</span><span class='line'>  p.ylabel = &ldquo;y axis&rdquo;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  f.saveas(&ldquo;lines.png&rdquo;)
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
+
+<p>ここで私が何に詰まったかというと、sbtでbreezeを導入したにも関わらず、breeze.plotが存在しないという事態でした。breeze-viz自体はbreezeとは別のリポジトリで開発されていますが、最近、大本のbreezeのリポジトリに移動したという記述があったため、breezeのみでやったのですが動かなかったということです。</p>
+
+<p>解決方法としては単純でbuild.sbtのlibraryDependenciesにbreeze-vizを記述してsbtを動かすだけです。簡単ですね。</p>
+
+<h2>まとめ</h2>
+
+<p>breezeもbreeze-vizもメジャーリリースされていないということもあって、いざ使ってみるとちょいちょいバグと遭遇します。ですが、使ってみるとpythonでnumpyやmatplotlibを使う感覚と使えるので興味のある方は使ってみるといいんじゃないでしょうか。</p>
+]]></content>
+  </entry>
+  
+</feed>

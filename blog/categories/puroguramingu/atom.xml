@@ -4,7 +4,7 @@
   <title><![CDATA[Category: プログラミング | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/puroguramingu/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-18T06:02:28+09:00</updated>
+  <updated>2015-02-07T04:15:47+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,175 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[breeze-vizのサンプルを動かしてみた]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita/"/>
+    <updated>2015-02-07T03:16:41+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p>今現在、機械学習・Scalaの勉強がてらに<a href="http://gihyo.jp/dev/serial/01/machine-learning">機械学習　はじめよう</a>で解説されているものをScalaで実装するということを行なっています。元の記事ではアルゴリズムをPythonで実装しており、線形代数のようなものを扱うためのライブラリであるnumpyやグラフ描画用のmatplotlibを利用しています。</p>
+
+<p>私はScalaで実装するのですが、PythonにnumpyやmatplotlibがあるようにScalaにも同じようなものが存在していて、numpyはbreeze、matplotlibはbreeze-vizといったライブラリと置き換えることができます（たぶん）</p>
+
+<h2>breezeとは</h2>
+
+<p>breezeとはScalaNLPというscalaで自然言語処理・機械学習などを扱うためのプロジェクトで開発されている機械学習・数的計算用のライブラリです。ScalaNLP自体はbreeze以外にもEpicやPuckというようなものが提供されています。Epicはよくわからないですが、PuckはBerkeley NLP Groupで開発されているBerkeleyParserをGPU上で動作させるために実装したものみたいです。
+breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用のライブラリになっています。</p>
+
+<h2>今回やったこと</h2>
+
+<p>breezeが用意している<a href="https://github.com/scalanlp/breeze/wiki/Quickstart">QuickStart</a>のうちのbreeze-vizの部分を試したというものです。</p>
+
+<h3>環境</h3>
+
+<ul>
+<li>MacOSX
+
+<ul>
+<li>10.9.5</li>
+</ul>
+</li>
+<li>Scala
+
+<ul>
+<li>2.11.2</li>
+</ul>
+</li>
+<li>sbt
+
+<ul>
+<li>0.13.6</li>
+</ul>
+</li>
+</ul>
+
+
+<p>ソースコード自体はQuickStartとまったく一緒ですが、一応乗っけておきます。関数の使い方などどこかmatplotlibを彷彿とさせます(公式にはmatlab likeと書いているのでmatlabもこんな感じなんですかね)。</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import breeze.linalg.&lt;em>
+</span><span class='line'>import breeze.plot.&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>object Main extends App {
+</span><span class='line'>  val f = Figure()
+</span><span class='line'>  val p = f.subplot(0)
+</span><span class='line'>  val x = linspace(0.0, 1.0)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  p += plot(x ,x :^ 2.0)
+</span><span class='line'>  p += plot(x ,x :^ 3.0, &lsquo;.&rsquo;)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  p.xlabel = &ldquo;x axis&rdquo;
+</span><span class='line'>  p.ylabel = &ldquo;y axis&rdquo;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  f.saveas(&ldquo;lines.png&rdquo;)
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
+
+<p>ここで私が何に詰まったかというと、sbtでbreezeを導入したにも関わらず、breeze.plotが存在しないという事態でした。breeze-viz自体はbreezeとは別のリポジトリで開発されていますが、最近、大本のbreezeのリポジトリに移動したという記述があったため、breezeのみでやったのですが動かなかったということです。</p>
+
+<p>解決方法としては単純でbuild.sbtのlibraryDependenciesにbreeze-vizを記述してsbtを動かすだけです。簡単ですね。</p>
+
+<h2>まとめ</h2>
+
+<p>breezeもbreeze-vizもメジャーリリースされていないということもあって、いざ使ってみるとちょいちょいバグと遭遇します。ですが、使ってみるとpythonでnumpyやmatplotlibを使う感覚と使えるので興味のある方は使ってみるといいんじゃないでしょうか。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rによるやさしい統計学:1~4章]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang/"/>
+    <updated>2015-01-23T00:10:53+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang</id>
+    <content type="html"><![CDATA[<p>幾つか統計に関する書籍を読んできましたが、いまいちピンと来なかったので実際に入力などして感覚が掴みやすそうなものを読んでみることにしました。</p>
+
+<p>Rによるやさしい統計学はRと統計学の入門書でRを使いながら統計学に触れてみようという感じの本です。</p>
+
+<p>1~4章を読んだので重要そうな所を簡単にまとめたいと思います。</p>
+
+<h2>相関</h2>
+
+<h2>抽出方法</h2>
+
+<ul>
+<li>今回用いられているのは単純無作為抽出
+
+<ul>
+<li>単純無作為抽出が行われる理由としては、抽出方法における分布が関係する</li>
+<li>単純無作為抽出の場合、標本の分布は母集団の分布に従うが、他の抽出方法の場合だと、抽出方法によっては母集団の分布と等しくないことが考えられる</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>不偏性</h2>
+
+<ul>
+<li>一般に標本の分散などを取り扱う場合の方法として標本分散と不偏分散がある</li>
+<li>標本分散はよくある式の分散の式で求められるもので、不偏分散は割る値が-1になっているものである</li>
+<li>この不偏性は一般に対象としている標本が母集団全体である場合は標本分散を、一部分である場合は不偏分散が用いられる</li>
+<li>ここで不偏性をもつ推定量とは、ある標本分布の平均が母集団の平均と一定している場合の推定量のことをいう</li>
+</ul>
+
+
+<h2>標本分布</h2>
+
+<ul>
+<li><p>簡単に言えば標本統計量の分布</p>
+
+<ol>
+<li> 母集団から標本を取ってきて、母数を点推定する場合、その推定値(標本統計量)が本当に母集団を表現することができているかどうかが分からない</li>
+<li> なので母集団から繰り返し標本を取ってきて、母数の点推定を行い、その分布を使って標本誤差を判定する
+
+<ul>
+<li>標本統計量の分布が標本分布になる</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>標本平均の場合、一般にサンプルサイズを大きくすれば、標本平均の標本分布は正規分布に従うと過程することができる</p>
+
+<ul>
+<li>中心極限定理っていうらしい</li>
+</ul>
+</li>
+<li><p>一般に正規分布に従う母集団から得られる標本平均の標本分布は分散をサンプルサイズで割った正規分布に等しくなる</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[play.api.templates.Htmlがdeprecatedになってた]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta/"/>
+    <updated>2015-01-19T23:58:13+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta</id>
+    <content type="html"><![CDATA[<p>現在、knockoffを使って、markdownからhtmlに変換したものをdbに保存する際にstringnにしています。それをscala templateに渡す際には、play.api.templates.Htmlを使うとstringをhtmlとして使えるみたいです。</p>
+
+<p>しかし、使ってみるとplay.api.templates.Htmlがdeprecatedになっていました。</p>
+
+<p>色々見てみると、play.twirl.api.Htmlに変わっていました。使うときは注意が必要ですね。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[play-slickを使ってみる]]></title>
@@ -90,250 +259,6 @@
 </span><span class='line'>&ldquo;com.typesafe.slick&rdquo; % &ldquo;slick_2.11&rdquo; % &ldquo;2.1.0</span></code></pre></td></tr></table></div></figure></p>
 
 <p>の二種類があるみたいです。まぁ、細かくいうと後に何か付け足したりできるみたいですけど。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[knockoffが入らない]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai/"/>
-    <updated>2015-01-17T03:55:44+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai</id>
-    <content type="html"><![CDATA[<p>sbtでknockoffを入れてみようと思った時に起きた話。</p>
-
-<h2>ライブラリが入らない。。。</h2>
-
-<p>knockoffはScalaのmarkdownパーサーのライブラリで、色々遊んでみようと思い、今回入れることに。しかし、色々やって見れども出力されるのは。。。</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]</span></code></pre></td></tr></table></div></figure></p>
-
-<p>そりゃ、downloadすら出来てないんだからunresolved dependencyってでるよね。</p>
-
-<h2>解決</h2>
-
-<p>原因はsbtで探しに行くmavenのリポジトリの中にscalaのversionの2.10以降に対応するものが登録されていないためでした。githubの方のリポジトリには2.11に対応と書いてあったので不覚でした。mavenにあるのは2.9.2まで対応しているものでした。</p>
-
-<p>こんな感じで修正してみて、sbtを動かしたら無事knockoffを導入することができました。
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- scalaVersion := &ldquo;2.11.5&rdquo;
-</span><span class='line'>+ scalaVersion := &ldquo;2.9.2&rdquo;</span></code></pre></td></tr></table></div></figure></p>
-
-<h2>感想</h2>
-
-<p>mavenのリポジトリ経由ではなくsbtで直接githubを指定する方法ってないんかなーと。</p>
-
-<h2>追記</h2>
-
-<p>普通にgithub上のライブラリを指定する方法があるみたいですね。これで入れてみて動かしてみますかね。
-<a href="http://qiita.com/kawachi/items/71af20a102ecca41561d">Github 上のライブラリや sbt plugin を使う (sbt 0.13 以降用)</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[sbtを動かしてもライブラリがdownloadされない]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai/"/>
-    <updated>2015-01-17T03:13:55+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/17/sbtwodong-kasitemoraiburarigadownloadsarenai</id>
-    <content type="html"><![CDATA[<p>sbtでライブラリを導入しようとした際に起きたことですが、build.sbtにlibrarydependenciesを記入してcompileしてもライブラリがdownloadされませんでした。</p>
-
-<p>以下が出力されたエラー</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  ::          UNRESOLVED DEPENDENCIES         ::
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[warn]  :: com.tristanhunt#knockoff_2.11;0.8.2: not found
-</span><span class='line'>[warn]  ::::::::::::::::::::::::::::::::::::::::::::::
-</span><span class='line'>[trace] Stack trace suppressed: run last &lt;em>:update for the full output.
-</span><span class='line'>[error] (&lt;/em>:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.2: not found)]]]]]]]</span></code></pre></td></tr></table></div></figure></p>
-
-<p>downloadされてないんだから、unresolved dependencyになるのも当たり前なんですけどね。これの原因はbuild.sbtに記述されているScalaのversionが異なっているためでした。</p>
-
-<p>scalaのversionの確認方法は
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>asahima:knockoff_sample/ $ scala -version                             [3:22:32]
-</span><span class='line'>Scala code runner version 2.11.2 &ndash; Copyright 2002-2013, LAMP/EPFL]</span></code></pre></td></tr></table></div></figure></p>
-
-<p>ちなみにbuild.sbtに記述されていたscalaのversionは2.11.5でした。これを上に書かれているversionに書き直すと通常どおりに動きました。</p>
-
-<h2>感想</h2>
-
-<p>Scalaの知識もそうですが、sbtに関する知識もないとだめですね。この辺から色々勉強しなければいけないと改めて感じたので、それについてもちょいちょいまとめていきたいと思います。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[play2でHello World]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/15/play2dehello-world/"/>
-    <updated>2015-01-15T06:21:08+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/15/play2dehello-world</id>
-    <content type="html"><![CDATA[<p>Wikiを作るためにPlay2を実際に触ってみようということで、Hello Worldを出力してみた。</p>
-
-<p>今回使った環境として</p>
-
-<ul>
-<li>Scala</li>
-<li>Play2</li>
-<li>Intellij Idea 14 Ultimate</li>
-</ul>
-
-
-<p>になります。学生なので無料でUltimateを使えています。
-以下、Hello Worldの出力の過程です。</p>
-
-<h2>手順１ 既存のソースを見てみる</h2>
-
-<p>最初に出力されるApplication.scalanのソースコードは以下のようになっていました。これは<strong>/index</strong>にアクセスした際に、<strong>/app/views/index.scala.html</strong>を返すという意味になります。okは正しいrequestの場合みたいです。なので、ただHello Worldを表示したければ、この辺をいじればいいみたい。</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>import play.api.&lt;em>
-</span><span class='line'>import play.api.mvc.&lt;/em>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>object Application extends Controller {&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>  def index = Action {
-</span><span class='line'>      Ok(views.html.index(&ldquo;Your new application is ready.&rdquo;))
-</span><span class='line'>            }&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>}&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
-
-<h2>手順2 Hello Worldを表示するhtmlを指定する</h2>
-
-<p>Hello Worldを表示するファイルを作る前に、requestを飛ばす先を変更します。</p>
-
-<p>変更点は一つだけで
-<strong>views.html.index() => views.html.hello()</strong>
-です。これは<strong>/app/views/index.scala.html</strong>から<strong>/app/views/hello.scala.html</strong>に変更するという意味です。</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>import play.api.&lt;em>
-</span><span class='line'>import play.api.mvc.&lt;/em>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>object Application extends Controller {&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>  def index = Action {
-</span><span class='line'>      Ok(views.html.hello())
-</span><span class='line'>            }
-</span><span class='line'>}&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
-
-<h2>手順3 htmlファイルを作成する</h2>
-
-<p>ただこれだけ</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>&lt;!DOCTYPE html>
-</span><span class='line'>&lt;html>
-</span><span class='line'>&lt;head lang="en">
-</span><span class='line'>  &lt;meta charset="UTF-8">
-</span><span class='line'>    &lt;title>&lt;/title>
-</span><span class='line'>&lt;/head>
-</span><span class='line'>&lt;body>
-</span><span class='line'>    &lt;h1>Hello World&lt;/h1>
-</span><span class='line'>&lt;/body>
-</span><span class='line'> &lt;/html>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
-
-<p>これで実行すればHello Worldが出力されます。</p>
-
-<h2>おまけ</h2>
-
-<p>Hello Worldを出力する上で、routingを全く気にしていないですが、実際にアプリケーションを作る上でroutingは必須です。簡単にroutingをする方法を見てみます。</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;h1>Routes&lt;/h1>
-</span><span class='line'>
-</span><span class='line'>&lt;h1>This file defines all application routes (Higher priority routes first)&lt;/h1>
-</span><span class='line'>
-</span><span class='line'>&lt;h1>~~~~&lt;/h1>
-</span><span class='line'>
-</span><span class='line'>&lt;h1>Home page&lt;/h1>
-</span><span class='line'>
-</span><span class='line'>&lt;p>GET     /                           controllers.Application.index&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;h1>Map static resources from the /public folder to the /assets URL path&lt;/h1>
-</span><span class='line'>
-</span><span class='line'>&lt;p>GET     /assets/*file               controllers.Assets.at(path=&ldquo;/public&rdquo;, file)&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
-
-<p>この中で変更する部分は
-<strong>GET     /                           controllers.Application.index</strong>
-です。これは<strong>/</strong>にgetを投げたときに<strong>/app/controllers/Application.scalaのindex</strong>を表示するという意味です(多分)。なので、この辺を自分のやりたいようにできます(ある程度までは)</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[メモ帳]]></title>
   <link href="http://asahima.github.io/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-18T06:02:28+09:00</updated>
+  <updated>2015-02-07T04:15:47+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,172 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[breeze-vizのサンプルを動かしてみた]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita/"/>
+    <updated>2015-02-07T03:16:41+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p>今現在、機械学習・Scalaの勉強がてらに<a href="http://gihyo.jp/dev/serial/01/machine-learning">機械学習　はじめよう</a>で解説されているものをScalaで実装するということを行なっています。元の記事ではアルゴリズムをPythonで実装しており、線形代数のようなものを扱うためのライブラリであるnumpyやグラフ描画用のmatplotlibを利用しています。</p>
+
+<p>私はScalaで実装するのですが、PythonにnumpyやmatplotlibがあるようにScalaにも同じようなものが存在していて、numpyはbreeze、matplotlibはbreeze-vizといったライブラリと置き換えることができます（たぶん）</p>
+
+<h2>breezeとは</h2>
+
+<p>breezeとはScalaNLPというscalaで自然言語処理・機械学習などを扱うためのプロジェクトで開発されている機械学習・数的計算用のライブラリです。ScalaNLP自体はbreeze以外にもEpicやPuckというようなものが提供されています。Epicはよくわからないですが、PuckはBerkeley NLP Groupで開発されているBerkeleyParserをGPU上で動作させるために実装したものみたいです。
+breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用のライブラリになっています。</p>
+
+<h2>今回やったこと</h2>
+
+<p>breezeが用意している<a href="https://github.com/scalanlp/breeze/wiki/Quickstart">QuickStart</a>のうちのbreeze-vizの部分を試したというものです。</p>
+
+<h3>環境</h3>
+
+<ul>
+<li>MacOSX
+
+<ul>
+<li>10.9.5</li>
+</ul>
+</li>
+<li>Scala
+
+<ul>
+<li>2.11.2</li>
+</ul>
+</li>
+<li>sbt
+
+<ul>
+<li>0.13.6</li>
+</ul>
+</li>
+</ul>
+
+
+<p>ソースコード自体はQuickStartとまったく一緒ですが、一応乗っけておきます。関数の使い方などどこかmatplotlibを彷彿とさせます(公式にはmatlab likeと書いているのでmatlabもこんな感じなんですかね)。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import breeze.linalg._
+</span><span class='line'>import breeze.plot._
+</span><span class='line'>
+</span><span class='line'>object Main extends App {
+</span><span class='line'>  val f = Figure()
+</span><span class='line'>  val p = f.subplot(0)
+</span><span class='line'>  val x = linspace(0.0, 1.0)
+</span><span class='line'>          
+</span><span class='line'>  p += plot(x ,x :^ 2.0)
+</span><span class='line'>  p += plot(x ,x :^ 3.0, '.')
+</span><span class='line'>              
+</span><span class='line'>  p.xlabel = "x axis"
+</span><span class='line'>  p.ylabel = "y axis"
+</span><span class='line'>                  
+</span><span class='line'>  f.saveas("lines.png")
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここで私が何に詰まったかというと、sbtでbreezeを導入したにも関わらず、breeze.plotが存在しないという事態でした。breeze-viz自体はbreezeとは別のリポジトリで開発されていますが、最近、大本のbreezeのリポジトリに移動したという記述があったため、breezeのみでやったのですが動かなかったということです。</p>
+
+<p>解決方法としては単純でbuild.sbtのlibraryDependenciesにbreeze-vizを記述してsbtを動かすだけです。簡単ですね。</p>
+
+<h2>まとめ</h2>
+
+<p>breezeもbreeze-vizもメジャーリリースされていないということもあって、いざ使ってみるとちょいちょいバグと遭遇します。ですが、使ってみるとpythonでnumpyやmatplotlibを使う感覚と使えるので興味のある方は使ってみるといいんじゃないでしょうか。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rによるやさしい統計学:1~4章]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang/"/>
+    <updated>2015-01-23T00:10:53+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang</id>
+    <content type="html"><![CDATA[<p>幾つか統計に関する書籍を読んできましたが、いまいちピンと来なかったので実際に入力などして感覚が掴みやすそうなものを読んでみることにしました。</p>
+
+<p>Rによるやさしい統計学はRと統計学の入門書でRを使いながら統計学に触れてみようという感じの本です。</p>
+
+<p>1~4章を読んだので重要そうな所を簡単にまとめたいと思います。</p>
+
+<h2>相関</h2>
+
+<h2>抽出方法</h2>
+
+<ul>
+<li>今回用いられているのは単純無作為抽出
+
+<ul>
+<li>単純無作為抽出が行われる理由としては、抽出方法における分布が関係する</li>
+<li>単純無作為抽出の場合、標本の分布は母集団の分布に従うが、他の抽出方法の場合だと、抽出方法によっては母集団の分布と等しくないことが考えられる</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>不偏性</h2>
+
+<ul>
+<li>一般に標本の分散などを取り扱う場合の方法として標本分散と不偏分散がある</li>
+<li>標本分散はよくある式の分散の式で求められるもので、不偏分散は割る値が-1になっているものである</li>
+<li>この不偏性は一般に対象としている標本が母集団全体である場合は標本分散を、一部分である場合は不偏分散が用いられる</li>
+<li>ここで不偏性をもつ推定量とは、ある標本分布の平均が母集団の平均と一定している場合の推定量のことをいう</li>
+</ul>
+
+
+<h2>標本分布</h2>
+
+<ul>
+<li><p>簡単に言えば標本統計量の分布</p>
+
+<ol>
+<li> 母集団から標本を取ってきて、母数を点推定する場合、その推定値(標本統計量)が本当に母集団を表現することができているかどうかが分からない</li>
+<li> なので母集団から繰り返し標本を取ってきて、母数の点推定を行い、その分布を使って標本誤差を判定する
+
+<ul>
+<li>標本統計量の分布が標本分布になる</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>標本平均の場合、一般にサンプルサイズを大きくすれば、標本平均の標本分布は正規分布に従うと過程することができる</p>
+
+<ul>
+<li>中心極限定理っていうらしい</li>
+</ul>
+</li>
+<li><p>一般に正規分布に従う母集団から得られる標本平均の標本分布は分散をサンプルサイズで割った正規分布に等しくなる</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[play.api.templates.Htmlがdeprecatedになってた]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta/"/>
+    <updated>2015-01-19T23:58:13+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta</id>
+    <content type="html"><![CDATA[<p>現在、knockoffを使って、markdownからhtmlに変換したものをdbに保存する際にstringnにしています。それをscala templateに渡す際には、play.api.templates.Htmlを使うとstringをhtmlとして使えるみたいです。</p>
+
+<p>しかし、使ってみるとplay.api.templates.Htmlがdeprecatedになっていました。</p>
+
+<p>色々見てみると、play.twirl.api.Htmlに変わっていました。使うときは注意が必要ですね。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[play-slickを使ってみる]]></title>

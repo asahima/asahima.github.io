@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>new-page - メモ帳</title>
+  <title>Rによるやさしい統計学:1~4章 - メモ帳</title>
   <meta name="author" content="asahima">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://asahima.github.io/new-page">
+  <link rel="canonical" href="http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -90,33 +90,16 @@
   <div class="container">
     <div class="row-fluid">
       
-<article role="article" class="span9">
+<article class="hentry span9" role="article">
 
   
   <header class="page-header">
-    <h1 class="entry-title">New-page</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-07T20:17:00+09:00" pubdate data-updated="true"></time></p>
-  </header>
-  
-  
-
-  
-    <footer>
+    
+      <h1 class="entry-title">Rによるやさしい統計学:1~4章</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -128,22 +111,126 @@
   
 
 
-<time datetime="2014-10-07T20:17:00+09:00" pubdate data-updated="true"></time>
+<time datetime="2015-01-23T00:10:53+09:00" pubdate data-updated="true"></time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>幾つか統計に関する書籍を読んできましたが、いまいちピンと来なかったので実際に入力などして感覚が掴みやすそうなものを読んでみることにしました。</p>
+
+<p>Rによるやさしい統計学はRと統計学の入門書でRを使いながら統計学に触れてみようという感じの本です。</p>
+
+<p>1~4章を読んだので重要そうな所を簡単にまとめたいと思います。</p>
+
+<h2>相関</h2>
+
+<h2>抽出方法</h2>
+
+<ul>
+<li>今回用いられているのは単純無作為抽出
+
+<ul>
+<li>単純無作為抽出が行われる理由としては、抽出方法における分布が関係する</li>
+<li>単純無作為抽出の場合、標本の分布は母集団の分布に従うが、他の抽出方法の場合だと、抽出方法によっては母集団の分布と等しくないことが考えられる</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>不偏性</h2>
+
+<ul>
+<li>一般に標本の分散などを取り扱う場合の方法として標本分散と不偏分散がある</li>
+<li>標本分散はよくある式の分散の式で求められるもので、不偏分散は割る値が-1になっているものである</li>
+<li>この不偏性は一般に対象としている標本が母集団全体である場合は標本分散を、一部分である場合は不偏分散が用いられる</li>
+<li>ここで不偏性をもつ推定量とは、ある標本分布の平均が母集団の平均と一定している場合の推定量のことをいう</li>
+</ul>
+
+
+<h2>標本分布</h2>
+
+<ul>
+<li><p>簡単に言えば標本統計量の分布</p>
+
+<ol>
+<li> 母集団から標本を取ってきて、母数を点推定する場合、その推定値(標本統計量)が本当に母集団を表現することができているかどうかが分からない</li>
+<li> なので母集団から繰り返し標本を取ってきて、母数の点推定を行い、その分布を使って標本誤差を判定する
+
+<ul>
+<li>標本統計量の分布が標本分布になる</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>標本平均の場合、一般にサンプルサイズを大きくすれば、標本平均の標本分布は正規分布に従うと過程することができる</p>
+
+<ul>
+<li>中心極限定理っていうらしい</li>
+</ul>
+</li>
+<li><p>一般に正規分布に従う母集団から得られる標本平均の標本分布は分散をサンプルサイズで割った正規分布に等しくなる</p></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/new-page/index.html" data-via="" data-counturl="http://asahima.github.io/new-page/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">asahima</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-23T00:10:53+09:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/r/'>r</a>, <a class='category' href='/blog/categories/puroguramingu/'>プログラミング</a>, <a class='category' href='/blog/categories/tong-ji-xue/'>統計学</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang/" data-via="" data-counturl="http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang/" >Tweet</a>
   
   
   
 </div>
 
+    
+    
+    <ul class="pager">
       
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta/" title="Previous Post:
+        play.api.templates.Htmlがdeprecatedになってた">&laquo; play.api.templates.Htmlがdeprecatedになってた</a></li>
       
-    </footer>
-  
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+      <li class="next"><a class="basic-alignment right" href="/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita/"
+        title="Next Post: breeze-vizのサンプルを動かしてみた">breeze-vizのサンプルを動かしてみた
+        &raquo;</a></li>
+      
+    </ul>
+  </footer>
 </article>
 
 <aside class="sidebar-nav span3">

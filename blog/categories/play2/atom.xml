@@ -4,7 +4,7 @@
   <title><![CDATA[Category: play2 | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/play2/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-01-18T06:02:28+09:00</updated>
+  <updated>2015-02-07T04:15:47+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[play.api.templates.Htmlがdeprecatedになってた]]></title>
+    <link href="http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta/"/>
+    <updated>2015-01-19T23:58:13+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta</id>
+    <content type="html"><![CDATA[<p>現在、knockoffを使って、markdownからhtmlに変換したものをdbに保存する際にstringnにしています。それをscala templateに渡す際には、play.api.templates.Htmlを使うとstringをhtmlとして使えるみたいです。</p>
+
+<p>しかし、使ってみるとplay.api.templates.Htmlがdeprecatedになっていました。</p>
+
+<p>色々見てみると、play.twirl.api.Htmlに変わっていました。使うときは注意が必要ですね。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[play2でHello World]]></title>
