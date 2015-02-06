@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 雑記 | メモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/za-ji/atom.xml" rel="self"/>
+  <link href="http://asahima.github.io/"/>
+  <updated>2015-02-07T05:06:43+09:00</updated>
+  <id>http://asahima.github.io/</id>
+  <author>
+    <name><![CDATA[asahima]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[緑化活動をしていきたい]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/07/lu-hua-huo-dong-wositeikitai/"/>
+    <updated>2015-02-07T04:39:20+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/07/lu-hua-huo-dong-wositeikitai</id>
+    <content type="html"><![CDATA[<p>これ私もやっていきたいなーと思った記事があったので軽く紹介。</p>
+
+<p>詳細は以下の記事を参照してください。
+- <a href="http://mitsuse.github.io/slides/2014/ryokuka/">緑化活動、しませんか</a></p>
+
+<p>内容を私的に一文でまとめると「アウトプットの習慣をつけよう」だと思っています。もう少し詳しく説明するとgithubではユーザ画面で contributions calender というものを提供しています。これはそのユーザがgithubに対してどれだけcontributionしているかを評価するためのものになっていて、contributionの回数が多いほど白から濃い緑色になるというものです。ここで上記のスライドの作者の方はgithubにcontributionする行為を「緑化活動」として、これを継続的にやっていこうという話をしています(世間でも緑化活動と言ってるかはよく知らない)。</p>
+
+<p>この「緑化活動」の利点として、実際の作業が可視化されることです。contributionの回数が具体的に色として表示されますし、継続できているかどうかが一目で分かります。ちなみに私は真っ白です。</p>
+
+<p>上記の記事を見て、今まである程度まで完成しないとgithubには上げていなかったことに気づきました。そこそこ動く状態じゃないと上げづらかったというのが理由です。その程度の理由なので、これからは積極的に上げていきたいと思います。でも、まぁ適度に商い程度に続けていければと思いつつですが。。。</p>
+
+<p>今作りたいなーと思っているものが幾つかあるので、それを作りつつ、またこのブログを書きつつでやっていきたいと思います。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://asahima.github.io/blog/2015/02/07/lu-hua-huo-dong-wositeikitai/</loc>
+    
+    <lastmod>2015-02-07T04:39:20+09:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://asahima.github.io/blog/2015/02/07/breeze-vizfalsesanpuruwodong-kasitemita/</loc>
     
     <lastmod>2015-02-07T03:16:41+09:00</lastmod>
@@ -101,21 +109,21 @@
   
   <url>
     <loc>http://asahima.github.io/blog/archives/</loc>
-    <lastmod>2015-02-07T04:19:34+09:00</lastmod>
+    <lastmod>2015-02-07T05:06:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://asahima.github.io/</loc>
-    <lastmod>2015-02-07T04:19:34+09:00</lastmod>
+    <lastmod>2015-02-07T05:06:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://asahima.github.io/new-page/</loc>
-    <lastmod>2015-02-07T04:19:34+09:00</lastmod>
+    <lastmod>2015-02-07T05:06:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
