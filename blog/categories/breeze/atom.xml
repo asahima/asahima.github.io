@@ -4,7 +4,7 @@
   <title><![CDATA[Category: breeze | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/breeze/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-07T04:15:47+09:00</updated>
+  <updated>2015-02-07T04:19:34+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -59,42 +59,23 @@ breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用�
 
 <p>ソースコード自体はQuickStartとまったく一緒ですが、一応乗っけておきます。関数の使い方などどこかmatplotlibを彷彿とさせます(公式にはmatlab likeと書いているのでmatlabもこんな感じなんですかね)。</p>
 
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import breeze.linalg.&lt;em>
-</span><span class='line'>import breeze.plot.&lt;/em>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>object Main extends App {
-</span><span class='line'>  val f = Figure()
-</span><span class='line'>  val p = f.subplot(0)
-</span><span class='line'>  val x = linspace(0.0, 1.0)&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>  p += plot(x ,x :^ 2.0)
-</span><span class='line'>  p += plot(x ,x :^ 3.0, &lsquo;.&rsquo;)&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>  p.xlabel = &ldquo;x axis&rdquo;
-</span><span class='line'>  p.ylabel = &ldquo;y axis&rdquo;&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>  f.saveas(&ldquo;lines.png&rdquo;)
-</span><span class='line'>}&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
+<pre><code class="python">import breeze.linalg._
+import breeze.plot._
+
+object Main extends App {
+  val f = Figure()
+  val p = f.subplot(0)
+  val x = linspace(0.0, 1.0)
+
+  p += plot(x ,x :^ 2.0)
+  p += plot(x ,x :^ 3.0, '.')
+
+  p.xlabel = "x axis"
+  p.ylabel = "y axis"
+
+  f.saveas("lines.png")
+}
+</code></pre>
 
 <p>ここで私が何に詰まったかというと、sbtでbreezeを導入したにも関わらず、breeze.plotが存在しないという事態でした。breeze-viz自体はbreezeとは別のリポジトリで開発されていますが、最近、大本のbreezeのリポジトリに移動したという記述があったため、breezeのみでやったのですが動かなかったということです。</p>
 

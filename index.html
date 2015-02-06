@@ -161,7 +161,7 @@ breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用�
 
 <p>ソースコード自体はQuickStartとまったく一緒ですが、一応乗っけておきます。関数の使い方などどこかmatplotlibを彷彿とさせます(公式にはmatlab likeと書いているのでmatlabもこんな感じなんですかね)。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -177,22 +177,23 @@ breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用�
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import breeze.linalg._
-</span><span class='line'>import breeze.plot._
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">breeze.linalg._</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">breeze.plot._</span>
 </span><span class='line'>
-</span><span class='line'>object Main extends App {
-</span><span class='line'>  val f = Figure()
-</span><span class='line'>  val p = f.subplot(0)
-</span><span class='line'>  val x = linspace(0.0, 1.0)
-</span><span class='line'>          
-</span><span class='line'>  p += plot(x ,x :^ 2.0)
-</span><span class='line'>  p += plot(x ,x :^ 3.0, '.')
-</span><span class='line'>              
-</span><span class='line'>  p.xlabel = "x axis"
-</span><span class='line'>  p.ylabel = "y axis"
-</span><span class='line'>                  
-</span><span class='line'>  f.saveas("lines.png")
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="nb">object</span> <span class="n">Main</span> <span class="n">extends</span> <span class="n">App</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">val</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">val</span> <span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">val</span> <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span> <span class="p">,</span><span class="n">x</span> <span class="p">:</span><span class="o">^</span> <span class="mf">2.0</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span> <span class="p">,</span><span class="n">x</span> <span class="p">:</span><span class="o">^</span> <span class="mf">3.0</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">p</span><span class="o">.</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s">&quot;x axis&quot;</span>
+</span><span class='line'>  <span class="n">p</span><span class="o">.</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s">&quot;y axis&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">f</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s">&quot;lines.png&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>ここで私が何に詰まったかというと、sbtでbreezeを導入したにも関わらず、breeze.plotが存在しないという事態でした。breeze-viz自体はbreezeとは別のリポジトリで開発されていますが、最近、大本のbreezeのリポジトリに移動したという記述があったため、breezeのみでやったのですが動かなかったということです。</p>
