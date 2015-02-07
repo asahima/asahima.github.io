@@ -97,6 +97,121 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2015/02/08/breeze-vizdeyou-ndemiru/">Breeze-vizで遊んでみる</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-08T00:03:48+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>昨日はbreeze-vizを導入してQuickStartに乗っているソースを動かしてみるということをやりました。今日は与えられた点と最小二乗法で求めた回帰直線をplotしてみようということをやってみます。</p>
+
+<p>ソースはこんな感じ。breeze-vizのplotの第一引数は描画する点のx座標、第二引数はy座標になっています。第三引数は描画するものを示しているようで、&#8221;.&ldquo;を指定すると点がプロットされます。ここで何も指定しないと直線が描画されることになります。Documentが見れれば細かいことが分かりそうですが、breeze.plotに関してはapi documentの方にも記述がないので実際にソースを読むしかなさそうです(私が探しきれていないだけで実はあったりするのかな)。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">breeze.linalg._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">breeze.plot._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Data</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Main</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">datas</span> <span class="k">=</span> <span class="nc">Array</span><span class="o">[</span><span class="kt">Data</span><span class="o">](</span><span class="nc">Data</span><span class="o">(</span><span class="mf">4.0</span><span class="o">,</span> <span class="mf">7.0</span><span class="o">),</span> <span class="nc">Data</span><span class="o">(</span><span class="mf">8.0</span><span class="o">,</span> <span class="mf">10.0</span><span class="o">),</span> <span class="nc">Data</span><span class="o">(</span><span class="mf">13.0</span><span class="o">,</span> <span class="mf">11.0</span><span class="o">),</span> <span class="nc">Data</span><span class="o">(</span><span class="mf">17.0</span><span class="o">,</span> <span class="mf">14.0</span><span class="o">))</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="n">leastSquares</span><span class="o">(</span><span class="n">datas</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;a:${value._1} b:${value._2}&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">}</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">}</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">oy</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">value</span><span class="o">.</span><span class="n">_1</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="n">_2</span><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// plot</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">f</span> <span class="k">=</span> <span class="nc">Figure</span><span class="o">()</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">f</span><span class="o">.</span><span class="n">subplot</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="sc">&#39;.&#39;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">oy</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">xlabel</span> <span class="k">=</span> <span class="s">&quot;x&quot;</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">ylabel</span> <span class="k">=</span> <span class="s">&quot;y&quot;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">leastSquares</span><span class="o">(</span><span class="n">datas</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">Data</span><span class="o">])</span><span class="k">:</span> <span class="o">(</span><span class="kt">Double</span><span class="o">,</span> <span class="kt">Double</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x_square_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">y_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x_y_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="o">(((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">y_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">datas</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">x_y_sum</span><span class="o">))</span> <span class="o">/</span> <span class="o">((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">x_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">datas</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">x_square_sum</span><span class="o">)))</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="o">(((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">x_y_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">x_square_sum</span> <span class="o">*</span> <span class="n">y_sum</span><span class="o">))</span> <span class="o">/</span> <span class="o">((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">x_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">datas</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">x_square_sum</span><span class="o">)))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2015/02/07/lu-hua-huo-dong-wositeikitai/">緑化活動をしていきたい</a></h1>
     
     
@@ -708,172 +823,6 @@ breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用�
 
     </article>
   
-  
-    <article>
-      
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/15/play2dehello-world/">play2でHello World</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-15T06:21:08+09:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Wikiを作るためにPlay2を実際に触ってみようということで、Hello Worldを出力してみた。</p>
-
-<p>今回使った環境として</p>
-
-<ul>
-<li>Scala</li>
-<li>Play2</li>
-<li>Intellij Idea 14 Ultimate</li>
-</ul>
-
-
-<p>になります。学生なので無料でUltimateを使えています。
-以下、Hello Worldの出力の過程です。</p>
-
-<h2>手順１ 既存のソースを見てみる</h2>
-
-<p>最初に出力されるApplication.scalanのソースコードは以下のようになっていました。これは<strong>/index</strong>にアクセスした際に、<strong>/app/views/index.scala.html</strong>を返すという意味になります。okは正しいrequestの場合みたいです。なので、ただHello Worldを表示したければ、この辺をいじればいいみたい。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers
-</span><span class='line'>
-</span><span class='line'>import play.api._
-</span><span class='line'>import play.api.mvc._
-</span><span class='line'>
-</span><span class='line'>object Application extends Controller {
-</span><span class='line'>
-</span><span class='line'>  def index = Action {
-</span><span class='line'>      Ok(views.html.index("Your new application is ready."))
-</span><span class='line'>            }
-</span><span class='line'>  
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>手順2 Hello Worldを表示するhtmlを指定する</h2>
-
-<p>Hello Worldを表示するファイルを作る前に、requestを飛ばす先を変更します。</p>
-
-<p>変更点は一つだけで
-<strong>views.html.index() => views.html.hello()</strong>
-です。これは<strong>/app/views/index.scala.html</strong>から<strong>/app/views/hello.scala.html</strong>に変更するという意味です。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>package controllers
-</span><span class='line'>
-</span><span class='line'>import play.api._
-</span><span class='line'>import play.api.mvc._
-</span><span class='line'>
-</span><span class='line'>object Application extends Controller {
-</span><span class='line'>
-</span><span class='line'>  def index = Action {
-</span><span class='line'>      Ok(views.html.hello())
-</span><span class='line'>            }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>手順3 htmlファイルを作成する</h2>
-
-<p>ただこれだけ</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!DOCTYPE html>
-</span><span class='line'>&lt;html>
-</span><span class='line'>&lt;head lang="en">
-</span><span class='line'>  &lt;meta charset="UTF-8">
-</span><span class='line'>    &lt;title>&lt;/title>
-</span><span class='line'>&lt;/head>
-</span><span class='line'>&lt;body>
-</span><span class='line'>    &lt;h1>Hello World&lt;/h1>
-</span><span class='line'>&lt;/body>
-</span><span class='line'> &lt;/html></span></code></pre></td></tr></table></div></figure>
-
-
-<p>これで実行すればHello Worldが出力されます。</p>
-
-<h2>おまけ</h2>
-
-<p>Hello Worldを出力する上で、routingを全く気にしていないですが、実際にアプリケーションを作る上でroutingは必須です。簡単にroutingをする方法を見てみます。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># Routes
-</span><span class='line'># This file defines all application routes (Higher priority routes first)
-</span><span class='line'># ~~~~
-</span><span class='line'>
-</span><span class='line'># Home page
-</span><span class='line'>GET     /                           controllers.Application.index
-</span><span class='line'>
-</span><span class='line'># Map static resources from the /public folder to the /assets URL path
-</span><span class='line'>GET     /assets/\*file               controllers.Assets.at(path="/public", file)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>この中で変更する部分は
-<strong>GET     /                           controllers.Application.index</strong>
-です。これは<strong>/</strong>にgetを投げたときに<strong>/app/controllers/Application.scalaのindex</strong>を表示するという意味です(多分)。なので、この辺を自分のやりたいようにできます(ある程度までは)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="2">&larr; Older</a></li>
@@ -889,6 +838,10 @@ breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用�
     <li class="nav-header">Recent Posts</li>
     
       <li class="post">
+        <a href="/blog/2015/02/08/breeze-vizdeyou-ndemiru/">breeze-vizで遊んでみる</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/07/lu-hua-huo-dong-wositeikitai/">緑化活動をしていきたい</a>
       </li>
     
@@ -902,10 +855,6 @@ breeze-vizはbreezeを構成するモジュールの一つでグラフ描画用�
     
       <li class="post">
         <a href="/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta/">play.api.templates.Htmlがdeprecatedになってた</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/18/play-slickwoshi-tutemiru/">play-slickを使ってみる</a>
       </li>
     
   </ul>

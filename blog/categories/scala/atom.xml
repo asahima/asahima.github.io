@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scala | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-07T05:06:43+09:00</updated>
+  <updated>2015-02-08T00:17:45+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[breeze-vizで遊んでみる]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/08/breeze-vizdeyou-ndemiru/"/>
+    <updated>2015-02-08T00:03:48+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/08/breeze-vizdeyou-ndemiru</id>
+    <content type="html"><![CDATA[<p>昨日はbreeze-vizを導入してQuickStartに乗っているソースを動かしてみるということをやりました。今日は与えられた点と最小二乗法で求めた回帰直線をplotしてみようということをやってみます。</p>
+
+<p>ソースはこんな感じ。breeze-vizのplotの第一引数は描画する点のx座標、第二引数はy座標になっています。第三引数は描画するものを示しているようで、&#8221;.&ldquo;を指定すると点がプロットされます。ここで何も指定しないと直線が描画されることになります。Documentが見れれば細かいことが分かりそうですが、breeze.plotに関してはapi documentの方にも記述がないので実際にソースを読むしかなさそうです(私が探しきれていないだけで実はあったりするのかな)。</p>
+
+<pre><code class="scala">import breeze.linalg._
+import breeze.plot._
+
+case class Data(x: Double, y: Double)
+
+object Main {
+  def main(args: Array[String]): Unit = {
+    val datas = Array[Data](Data(4.0, 7.0), Data(8.0, 10.0), Data(13.0, 11.0), Data(17.0, 14.0))
+    val value = leastSquares(datas)
+    println(s"a:${value._1} b:${value._2}")
+
+    val x = datas.map { data =&gt; data.x }
+    val y = datas.map { data =&gt; data.y }
+    val oy = datas.map { data =&gt; value._1 * data.x + value._2}
+
+    // plot
+    val f = Figure()
+    val p = f.subplot(0)
+
+    p += plot(x, y, '.')
+    p += plot(x, oy)
+    p.xlabel = "x"
+    p.ylabel = "y"
+  }
+
+  def leastSquares(datas: Array[Data]): (Double, Double) = {
+    val x_sum = datas.map { data =&gt; data.x }.sum
+    val x_square_sum = datas.map { data =&gt; data.x * data.x }.sum
+    val y_sum = datas.map { data =&gt; data.y }.sum
+    val x_y_sum = datas.map { data =&gt; data.x * data.y }.sum
+
+    val a = (((x_sum * y_sum) - (datas.length * x_y_sum)) / ((x_sum * x_sum) - (datas.length * x_square_sum)))
+    val b = (((x_sum * x_y_sum) - (x_square_sum * y_sum)) / ((x_sum * x_sum) - (datas.length * x_square_sum)))
+
+    (a, b)
+  }
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[breeze-vizのサンプルを動かしてみた]]></title>
@@ -177,43 +227,6 @@ object Main extends App {
 </span><span class='line'>&ldquo;com.typesafe.slick&rdquo; % &ldquo;slick_2.11&rdquo; % &ldquo;2.1.0</span></code></pre></td></tr></table></div></figure></p>
 
 <p>の二種類があるみたいです。まぁ、細かくいうと後に何か付け足したりできるみたいですけど。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[knockoffが入らない]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai/"/>
-    <updated>2015-01-17T03:55:44+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/17/knockoffgaru-ranai</id>
-    <content type="html"><![CDATA[<p>sbtでknockoffを入れてみようと思った時に起きた話。</p>
-
-<h2>ライブラリが入らない。。。</h2>
-
-<p>knockoffはScalaのmarkdownパーサーのライブラリで、色々遊んでみようと思い、今回入れることに。しかし、色々やって見れども出力されるのは。。。</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[error] (*:update) sbt.ResolveException: unresolved dependency: com.tristanhunt#knockoff_2.11;0.8.0-16: not found)]</span></code></pre></td></tr></table></div></figure></p>
-
-<p>そりゃ、downloadすら出来てないんだからunresolved dependencyってでるよね。</p>
-
-<h2>解決</h2>
-
-<p>原因はsbtで探しに行くmavenのリポジトリの中にscalaのversionの2.10以降に対応するものが登録されていないためでした。githubの方のリポジトリには2.11に対応と書いてあったので不覚でした。mavenにあるのは2.9.2まで対応しているものでした。</p>
-
-<p>こんな感じで修正してみて、sbtを動かしたら無事knockoffを導入することができました。
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- scalaVersion := &ldquo;2.11.5&rdquo;
-</span><span class='line'>+ scalaVersion := &ldquo;2.9.2&rdquo;</span></code></pre></td></tr></table></div></figure></p>
-
-<h2>感想</h2>
-
-<p>mavenのリポジトリ経由ではなくsbtで直接githubを指定する方法ってないんかなーと。</p>
-
-<h2>追記</h2>
-
-<p>普通にgithub上のライブラリを指定する方法があるみたいですね。これで入れてみて動かしてみますかね。
-<a href="http://qiita.com/kawachi/items/71af20a102ecca41561d">Github 上のライブラリや sbt plugin を使う (sbt 0.13 以降用)</a></p>
 ]]></content>
   </entry>
   

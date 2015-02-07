@@ -4,7 +4,7 @@
   <title><![CDATA[メモ帳]]></title>
   <link href="http://asahima.github.io/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-07T05:06:43+09:00</updated>
+  <updated>2015-02-08T00:17:45+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[breeze-vizで遊んでみる]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/08/breeze-vizdeyou-ndemiru/"/>
+    <updated>2015-02-08T00:03:48+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/08/breeze-vizdeyou-ndemiru</id>
+    <content type="html"><![CDATA[<p>昨日はbreeze-vizを導入してQuickStartに乗っているソースを動かしてみるということをやりました。今日は与えられた点と最小二乗法で求めた回帰直線をplotしてみようということをやってみます。</p>
+
+<p>ソースはこんな感じ。breeze-vizのplotの第一引数は描画する点のx座標、第二引数はy座標になっています。第三引数は描画するものを示しているようで、&#8221;.&ldquo;を指定すると点がプロットされます。ここで何も指定しないと直線が描画されることになります。Documentが見れれば細かいことが分かりそうですが、breeze.plotに関してはapi documentの方にも記述がないので実際にソースを読むしかなさそうです(私が探しきれていないだけで実はあったりするのかな)。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">breeze.linalg._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">breeze.plot._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Data</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Main</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">datas</span> <span class="k">=</span> <span class="nc">Array</span><span class="o">[</span><span class="kt">Data</span><span class="o">](</span><span class="nc">Data</span><span class="o">(</span><span class="mf">4.0</span><span class="o">,</span> <span class="mf">7.0</span><span class="o">),</span> <span class="nc">Data</span><span class="o">(</span><span class="mf">8.0</span><span class="o">,</span> <span class="mf">10.0</span><span class="o">),</span> <span class="nc">Data</span><span class="o">(</span><span class="mf">13.0</span><span class="o">,</span> <span class="mf">11.0</span><span class="o">),</span> <span class="nc">Data</span><span class="o">(</span><span class="mf">17.0</span><span class="o">,</span> <span class="mf">14.0</span><span class="o">))</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="n">leastSquares</span><span class="o">(</span><span class="n">datas</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;a:${value._1} b:${value._2}&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">}</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">}</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">oy</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">value</span><span class="o">.</span><span class="n">_1</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="n">_2</span><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// plot</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">f</span> <span class="k">=</span> <span class="nc">Figure</span><span class="o">()</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">f</span><span class="o">.</span><span class="n">subplot</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="sc">&#39;.&#39;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">oy</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">xlabel</span> <span class="k">=</span> <span class="s">&quot;x&quot;</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">ylabel</span> <span class="k">=</span> <span class="s">&quot;y&quot;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">leastSquares</span><span class="o">(</span><span class="n">datas</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">Data</span><span class="o">])</span><span class="k">:</span> <span class="o">(</span><span class="kt">Double</span><span class="o">,</span> <span class="kt">Double</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x_square_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">y_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">x_y_sum</span> <span class="k">=</span> <span class="n">datas</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">data</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">}.</span><span class="n">sum</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="o">(((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">y_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">datas</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">x_y_sum</span><span class="o">))</span> <span class="o">/</span> <span class="o">((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">x_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">datas</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">x_square_sum</span><span class="o">)))</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="o">(((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">x_y_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">x_square_sum</span> <span class="o">*</span> <span class="n">y_sum</span><span class="o">))</span> <span class="o">/</span> <span class="o">((</span><span class="n">x_sum</span> <span class="o">*</span> <span class="n">x_sum</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">datas</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">x_square_sum</span><span class="o">)))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[緑化活動をしていきたい]]></title>
