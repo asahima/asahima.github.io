@@ -4,7 +4,7 @@
   <title><![CDATA[メモ帳]]></title>
   <link href="http://asahima.github.io/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-08T00:17:45+09:00</updated>
+  <updated>2015-02-08T05:21:29+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -98,6 +98,42 @@
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<h4>追記</h4>
+
+<p>plotに関して、描画するstyleを記述するのはmatplotlibにもあるようです。ですが、matplotlibの場合、指定できる文字の種類がbreeze-vizに比べて多いようです。</p>
+
+<p>breeze-vizで使用できる文字は</p>
+
+<ul>
+<li>&lsquo;-&rsquo;</li>
+<li>&lsquo;.&rsquo;</li>
+<li>&lsquo;+&rsquo;</li>
+</ul>
+
+
+<p>の３つだけのようです。これはplotに適当な文字を入れてみると出力されるエラーに記述されていました。</p>
+
+<blockquote><blockquote><p>java.lang.IllegalArgumentException: Expected style to be one of - . or +</p></blockquote></blockquote>
+
+<p>ちなみにplotで指定できるオプションとして</p>
+
+<ul>
+<li>style</li>
+<li>colorcode</li>
+<li>name</li>
+<li>lines</li>
+<li>shapes</li>
+<li>labels</li>
+<li>tips</li>
+</ul>
+
+
+<p>などがあるようです。tipsが何を示しているのかがよく分かりませんが、これについてはソースを読んで調べたいと思っています。</p>
+
+<h3>まとめ</h3>
+
+<p>breeze-vizを使い始めて、予想以上にDocumentがなくて驚いています。まぁ、&#8221;This API is very experimentable&#8221;とソースコードにも記述されているので、まだ作る段階ではないということなのでしょうが。とりあえず自分のメモ代わりということで、今後使い方などをまとめていきたいなと思っていて、<a href="http://bicycle1885.hatenablog.com/entry/2014/02/14/023734">matplotlib入門</a>のような形で見やすくまとめられたらなと考えています。</p>
 ]]></content>
   </entry>
   
