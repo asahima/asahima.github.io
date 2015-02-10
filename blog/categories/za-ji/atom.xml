@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 雑記 | メモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/za-ji/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-08T13:53:48+09:00</updated>
+  <updated>2015-02-10T23:33:24+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -30,6 +30,28 @@
 <p>上記の記事を見て、今まである程度まで完成しないとgithubには上げていなかったことに気づきました。そこそこ動く状態じゃないと上げづらかったというのが理由です。その程度の理由なので、これからは積極的に上げていきたいと思います。でも、まぁ適度に商い程度に続けていければと思いつつですが。。。</p>
 
 <p>今作りたいなーと思っているものが幾つかあるので、それを作りつつ、またこのブログを書きつつでやっていきたいと思います。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[初投稿]]></title>
+    <link href="http://asahima.github.io/blog/2014/10/07/chu-tou-gao/"/>
+    <updated>2014-10-07T20:18:55+09:00</updated>
+    <id>http://asahima.github.io/blog/2014/10/07/chu-tou-gao</id>
+    <content type="html"><![CDATA[<p>周囲から導入が難しいと言われて、ちょっと試してみようというノリでgithub pagesにoctpressを入れた次第です。どうせということで、自分の興味のあるトピックについて勉強したことを書いていければと思っています。</p>
+
+<p>興味のあるトピックは</p>
+
+<ul>
+<li>プログラミング</li>
+<li>機械学習</li>
+<li>自然言語処理</li>
+</ul>
+
+
+<p>です。</p>
+
+<p>よろしくお願いします</p>
 ]]></content>
   </entry>
   
