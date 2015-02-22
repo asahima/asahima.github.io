@@ -4,7 +4,7 @@
   <title><![CDATA[Category: プログラミング | NLP初心者のメモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/puroguramingu/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-13T22:59:54+09:00</updated>
+  <updated>2015-02-23T03:33:44+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ChaPASを使って遊びたい]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/19/chapaswoshi-tuteyou-ndemitai/"/>
+    <updated>2015-02-19T04:03:01+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/19/chapaswoshi-tuteyou-ndemitai</id>
+    <content type="html"><![CDATA[<p>ChaPASを使って何か遊べないかなーと思い立ったので、てきとうに出力をparseするスクリプトを書いてみました。大したことはしてないです。</p>
+
+<h2>ChaPAS</h2>
+
+<p><a href="https://sites.google.com/site/yotarow/chapas">ChaPAS</a>は日本語の述語項構造解析器です。述語項構造解析は文中の「誰が何をどうした」という意味的な役割を同定する自然言語処理のタスクです。</p>
+
+<p>使い方は至って簡単で</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo &ldquo;私は課題に鉛筆を使う&rdquo; | java -jar chapas.jar -I RAW&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>&lt;li>0 3D 0/1 -1.656864
+</span><span class='line'>私  名詞,代名詞,一般,&lt;em>,&lt;/em>,&lt;em>,私,ワタシ,ワタシ O   ID=&ldquo;1&rdquo;
+</span><span class='line'>は  助詞,係助詞,&lt;/em>,&lt;em>,&lt;/em>,*,は,ハ,ワ    O&lt;/li>
+</span><span class='line'>&lt;li>1 3D 0/1 -1.656864
+</span><span class='line'>課題    名詞,一般,&lt;em>,&lt;/em>,&lt;em>,&lt;/em>,課題,カダイ,カダイ    O   ID=&ldquo;2&rdquo;
+</span><span class='line'>に  助詞,格助詞,一般,&lt;em>,&lt;/em>,*,に,ニ,ニ O&lt;/li>
+</span><span class='line'>&lt;li>2 3D 0/1 -1.656864
+</span><span class='line'>鉛筆    名詞,一般,&lt;em>,&lt;/em>,&lt;em>,&lt;/em>,鉛筆,エンピツ,エンピツ    O   ID=&ldquo;3&rdquo;
+</span><span class='line'>を  助詞,格助詞,一般,&lt;em>,&lt;/em>,*,を,ヲ,ヲ O&lt;/li>
+</span><span class='line'>&lt;li>3 -1D 0/0 0.000000
+</span><span class='line'>使う    動詞,自立,&lt;em>,&lt;/em>,五段・ワ行促音便,基本形,使う,ツカウ,ツカウ    O   type=&ldquo;pred&rdquo; ga=&ldquo;1&rdquo; ni=&ldquo;2&rdquo; o=&ldquo;3&rdquo;
+</span><span class='line'>EOS&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
+
+<p>お手軽ですね。</p>
+
+<p>この例文の場合、名詞「私」、「課題」、「鉛筆」に対してIDが振られており、述語「使う」のガ格が「私」、二格が「課題」、ヲ格が「鉛筆」となっています。</p>
+
+<h2>今回</h2>
+
+<p>ChaPASを使って遊ぶためにはこの出力をparseする必要があります（実際のところは良く分からない）。なので、簡単にこの出力をparseするスクリプトを作ってみました。</p>
+
+<p><a href="https://github.com/asahima/ChapasWrapper">asahima/ChapasWrapper</a></p>
+
+<p>今のところ、超お手軽スクリプトなので、もう少しどうにかしたいと思っていますが何時になるやら。。。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ScalaでNeural Networkを実装したい]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/14/scaladeniyurarunetutowoshi-zhuang-sitai/"/>
+    <updated>2015-02-14T19:10:01+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/14/scaladeniyurarunetutowoshi-zhuang-sitai</id>
+    <content type="html"><![CDATA[<p>機械学習を勉強している過程で色々なアルゴリズムを実装して理解を深めようと取り組んできていますが、今回はNeural Networkを実装したいなーと思っております。実装したいと思っているのは、シンプルな<strong>フィードフォワード型</strong>のNeural Networkです。</p>
+
+<h3>Neural Network</h3>
+
+<p><strong>フィードフォワード型</strong>のNeural Networkは入力層から出力層に向けて順伝搬を行う(逆方向へは伝搬しない)モデルです。逆方向へ伝搬するモデルとしては<strong>Recurrent Neural Network</strong>などがあります。Recurrent Neural Networkについてはまだ良くわかっていないので記述しません。</p>
+
+<h3>実装</h3>
+
+<p>実装としては、[2]を参考にさせて頂いたこともあって、ほとんど同じになっています。違いとしてはあちらの記事ではPython・Numpyでの実装ですが、私の方ではScala・breezeで実装しているというものです。</p>
+
+<p>ソースコードは<a href="">こちら</a></p>
+
+<h3>まとめ</h3>
+
+<p>実装するにあたって、PRMLに記述されているNeural Networkの数式の写経を繰り返していたのですが、ようやく理解できたような気がします。一番初めにNeural Networkの数式を見た時は、こんなもの私には理解できないと思っていたのですが、一つ一つ解読していくと意外となんとかなるんだなーと思っています。</p>
+
+<p>今後の方針としては色々ありますが、現状でいうなら</p>
+
+<ul>
+<li>活性化関数をクラスの外から指定できるようにする</li>
+<li>mini-batch AdaGradを実装する</li>
+</ul>
+
+
+<h3>参考</h3>
+
+<ol>
+<li><a href="http://aidiary.hatenablog.com/entry/20140122/1390395760">多層パーセプトロンによる関数近似</a></li>
+<li><a href="http://aidiary.hatenablog.com/entry/20140201/1391218771">多層パーセプトロンで手書き数字認識</a></li>
+<li><a href="http://pafelog.net/mining.pdf">Scalaで機械学習</a></li>
+<li><a href="">breeze scaladoc</a></li>
+<li><a href="http://rishida.hatenablog.com/entry/2014/02/25/110643">ゼロから始めるDeepLearning<em>その1</em>ニューラルネットとは</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[breeze-vizで遊んでみる]]></title>
@@ -200,82 +308,6 @@ object Main extends App {
 <h2>まとめ</h2>
 
 <p>breezeもbreeze-vizもメジャーリリースされていないということもあって、いざ使ってみるとちょいちょいバグと遭遇します。ですが、使ってみるとpythonでnumpyやmatplotlibを使う感覚と使えるので興味のある方は使ってみるといいんじゃないでしょうか。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rによるやさしい統計学:1~4章]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang/"/>
-    <updated>2015-01-23T00:10:53+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/23/rniyoruyasasiitong-ji-xue-1~4zhang</id>
-    <content type="html"><![CDATA[<p>幾つか統計に関する書籍を読んできましたが、いまいちピンと来なかったので実際に入力などして感覚が掴みやすそうなものを読んでみることにしました。</p>
-
-<p>Rによるやさしい統計学はRと統計学の入門書でRを使いながら統計学に触れてみようという感じの本です。</p>
-
-<p>1~4章を読んだので重要そうな所を簡単にまとめたいと思います。</p>
-
-<h2>相関</h2>
-
-<h2>抽出方法</h2>
-
-<ul>
-<li>今回用いられているのは単純無作為抽出
-
-<ul>
-<li>単純無作為抽出が行われる理由としては、抽出方法における分布が関係する</li>
-<li>単純無作為抽出の場合、標本の分布は母集団の分布に従うが、他の抽出方法の場合だと、抽出方法によっては母集団の分布と等しくないことが考えられる</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>不偏性</h2>
-
-<ul>
-<li>一般に標本の分散などを取り扱う場合の方法として標本分散と不偏分散がある</li>
-<li>標本分散はよくある式の分散の式で求められるもので、不偏分散は割る値が-1になっているものである</li>
-<li>この不偏性は一般に対象としている標本が母集団全体である場合は標本分散を、一部分である場合は不偏分散が用いられる</li>
-<li>ここで不偏性をもつ推定量とは、ある標本分布の平均が母集団の平均と一定している場合の推定量のことをいう</li>
-</ul>
-
-
-<h2>標本分布</h2>
-
-<ul>
-<li><p>簡単に言えば標本統計量の分布</p>
-
-<ol>
-<li> 母集団から標本を取ってきて、母数を点推定する場合、その推定値(標本統計量)が本当に母集団を表現することができているかどうかが分からない</li>
-<li> なので母集団から繰り返し標本を取ってきて、母数の点推定を行い、その分布を使って標本誤差を判定する
-
-<ul>
-<li>標本統計量の分布が標本分布になる</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>標本平均の場合、一般にサンプルサイズを大きくすれば、標本平均の標本分布は正規分布に従うと過程することができる</p>
-
-<ul>
-<li>中心極限定理っていうらしい</li>
-</ul>
-</li>
-<li><p>一般に正規分布に従う母集団から得られる標本平均の標本分布は分散をサンプルサイズで割った正規分布に等しくなる</p></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[play.api.templates.Htmlがdeprecatedになってた]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta/"/>
-    <updated>2015-01-19T23:58:13+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/19/play-dot-api-dot-templates-dot-htmlgadeprecatedninatuteta</id>
-    <content type="html"><![CDATA[<p>現在、knockoffを使って、markdownからhtmlに変換したものをdbに保存する際にstringnにしています。それをscala templateに渡す際には、play.api.templates.Htmlを使うとstringをhtmlとして使えるみたいです。</p>
-
-<p>しかし、使ってみるとplay.api.templates.Htmlがdeprecatedになっていました。</p>
-
-<p>色々見てみると、play.twirl.api.Htmlに変わっていました。使うときは注意が必要ですね。</p>
 ]]></content>
   </entry>
   

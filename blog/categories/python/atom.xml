@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | NLP初心者のメモ帳]]></title>
+  <link href="http://asahima.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://asahima.github.io/"/>
+  <updated>2015-02-23T03:33:44+09:00</updated>
+  <id>http://asahima.github.io/</id>
+  <author>
+    <name><![CDATA[asahima]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ChaPASを使って遊びたい]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/19/chapaswoshi-tuteyou-ndemitai/"/>
+    <updated>2015-02-19T04:03:01+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/19/chapaswoshi-tuteyou-ndemitai</id>
+    <content type="html"><![CDATA[<p>ChaPASを使って何か遊べないかなーと思い立ったので、てきとうに出力をparseするスクリプトを書いてみました。大したことはしてないです。</p>
+
+<h2>ChaPAS</h2>
+
+<p><a href="https://sites.google.com/site/yotarow/chapas">ChaPAS</a>は日本語の述語項構造解析器です。述語項構造解析は文中の「誰が何をどうした」という意味的な役割を同定する自然言語処理のタスクです。</p>
+
+<p>使い方は至って簡単で</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo &ldquo;私は課題に鉛筆を使う&rdquo; | java -jar chapas.jar -I RAW&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>&lt;li>0 3D 0/1 -1.656864
+</span><span class='line'>私  名詞,代名詞,一般,&lt;em>,&lt;/em>,&lt;em>,私,ワタシ,ワタシ O   ID=&ldquo;1&rdquo;
+</span><span class='line'>は  助詞,係助詞,&lt;/em>,&lt;em>,&lt;/em>,*,は,ハ,ワ    O&lt;/li>
+</span><span class='line'>&lt;li>1 3D 0/1 -1.656864
+</span><span class='line'>課題    名詞,一般,&lt;em>,&lt;/em>,&lt;em>,&lt;/em>,課題,カダイ,カダイ    O   ID=&ldquo;2&rdquo;
+</span><span class='line'>に  助詞,格助詞,一般,&lt;em>,&lt;/em>,*,に,ニ,ニ O&lt;/li>
+</span><span class='line'>&lt;li>2 3D 0/1 -1.656864
+</span><span class='line'>鉛筆    名詞,一般,&lt;em>,&lt;/em>,&lt;em>,&lt;/em>,鉛筆,エンピツ,エンピツ    O   ID=&ldquo;3&rdquo;
+</span><span class='line'>を  助詞,格助詞,一般,&lt;em>,&lt;/em>,*,を,ヲ,ヲ O&lt;/li>
+</span><span class='line'>&lt;li>3 -1D 0/0 0.000000
+</span><span class='line'>使う    動詞,自立,&lt;em>,&lt;/em>,五段・ワ行促音便,基本形,使う,ツカウ,ツカウ    O   type=&ldquo;pred&rdquo; ga=&ldquo;1&rdquo; ni=&ldquo;2&rdquo; o=&ldquo;3&rdquo;
+</span><span class='line'>EOS&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></p>
+
+<p>お手軽ですね。</p>
+
+<p>この例文の場合、名詞「私」、「課題」、「鉛筆」に対してIDが振られており、述語「使う」のガ格が「私」、二格が「課題」、ヲ格が「鉛筆」となっています。</p>
+
+<h2>今回</h2>
+
+<p>ChaPASを使って遊ぶためにはこの出力をparseする必要があります（実際のところは良く分からない）。なので、簡単にこの出力をparseするスクリプトを作ってみました。</p>
+
+<p><a href="https://github.com/asahima/ChapasWrapper">asahima/ChapasWrapper</a></p>
+
+<p>今のところ、超お手軽スクリプトなので、もう少しどうにかしたいと思っていますが何時になるやら。。。</p>
+]]></content>
+  </entry>
+  
+</feed>

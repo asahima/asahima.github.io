@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scala | NLP初心者のメモ帳]]></title>
   <link href="http://asahima.github.io/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://asahima.github.io/"/>
-  <updated>2015-02-13T22:59:54+09:00</updated>
+  <updated>2015-02-23T03:33:44+09:00</updated>
   <id>http://asahima.github.io/</id>
   <author>
     <name><![CDATA[asahima]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ScalaでNeural Networkを実装したい]]></title>
+    <link href="http://asahima.github.io/blog/2015/02/14/scaladeniyurarunetutowoshi-zhuang-sitai/"/>
+    <updated>2015-02-14T19:10:01+09:00</updated>
+    <id>http://asahima.github.io/blog/2015/02/14/scaladeniyurarunetutowoshi-zhuang-sitai</id>
+    <content type="html"><![CDATA[<p>機械学習を勉強している過程で色々なアルゴリズムを実装して理解を深めようと取り組んできていますが、今回はNeural Networkを実装したいなーと思っております。実装したいと思っているのは、シンプルな<strong>フィードフォワード型</strong>のNeural Networkです。</p>
+
+<h3>Neural Network</h3>
+
+<p><strong>フィードフォワード型</strong>のNeural Networkは入力層から出力層に向けて順伝搬を行う(逆方向へは伝搬しない)モデルです。逆方向へ伝搬するモデルとしては<strong>Recurrent Neural Network</strong>などがあります。Recurrent Neural Networkについてはまだ良くわかっていないので記述しません。</p>
+
+<h3>実装</h3>
+
+<p>実装としては、[2]を参考にさせて頂いたこともあって、ほとんど同じになっています。違いとしてはあちらの記事ではPython・Numpyでの実装ですが、私の方ではScala・breezeで実装しているというものです。</p>
+
+<p>ソースコードは<a href="">こちら</a></p>
+
+<h3>まとめ</h3>
+
+<p>実装するにあたって、PRMLに記述されているNeural Networkの数式の写経を繰り返していたのですが、ようやく理解できたような気がします。一番初めにNeural Networkの数式を見た時は、こんなもの私には理解できないと思っていたのですが、一つ一つ解読していくと意外となんとかなるんだなーと思っています。</p>
+
+<p>今後の方針としては色々ありますが、現状でいうなら</p>
+
+<ul>
+<li>活性化関数をクラスの外から指定できるようにする</li>
+<li>mini-batch AdaGradを実装する</li>
+</ul>
+
+
+<h3>参考</h3>
+
+<ol>
+<li><a href="http://aidiary.hatenablog.com/entry/20140122/1390395760">多層パーセプトロンによる関数近似</a></li>
+<li><a href="http://aidiary.hatenablog.com/entry/20140201/1391218771">多層パーセプトロンで手書き数字認識</a></li>
+<li><a href="http://pafelog.net/mining.pdf">Scalaで機械学習</a></li>
+<li><a href="">breeze scaladoc</a></li>
+<li><a href="http://rishida.hatenablog.com/entry/2014/02/25/110643">ゼロから始めるDeepLearning<em>その1</em>ニューラルネットとは</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[breeze-vizで遊んでみる]]></title>
@@ -249,30 +291,6 @@ object Main extends App {
 <h3>感想</h3>
 
 <p>ホントはtableの定義の書き方もまとめたいんですが、自分でもよくわかってない部分が多いので、その辺が理解できたら書こうと思います。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[%と%%の違いに苦労する]]></title>
-    <link href="http://asahima.github.io/blog/2015/01/17/percent-to-percent-percent-falsewei-iniku-lao-suru/"/>
-    <updated>2015-01-17T04:59:27+09:00</updated>
-    <id>http://asahima.github.io/blog/2015/01/17/percent-to-percent-percent-falsewei-iniku-lao-suru</id>
-    <content type="html"><![CDATA[<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>scalaVersion := &ldquo;2.11.5&rdquo;&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>// slickのscalaのversionを自動で補完する
-</span><span class='line'>&ldquo;com.typesafe.slick&rdquo; %% &ldquo;slick&rdquo; % &ldquo;2.1.0&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>// &lsquo;&rsquo; のscalaのversionを自動で補完しない
-</span><span class='line'>&ldquo;com.typesafe.slick&rdquo; % &ldquo;slick_2.11&rdquo; % &ldquo;2.1.0</span></code></pre></td></tr></table></div></figure></p>
-
-<p>の二種類があるみたいです。まぁ、細かくいうと後に何か付け足したりできるみたいですけど。</p>
 ]]></content>
   </entry>
   
